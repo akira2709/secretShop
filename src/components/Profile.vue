@@ -24,7 +24,12 @@
         </div>
         
       </div>
-
+      <div class="balance">
+        <h1>Рейтинг</h1>
+        <div>
+          <img src="/star.svg" alt="star">
+        </div>
+      </div>
 
     </div>
   </div>
@@ -92,7 +97,6 @@
     top: 7.03vw;
     width: calc(30.9375vw - 2vw);
     min-height: calc(100vh - 7.03vw);
-    display: flex;
     padding-left: 1vw;
     padding-right: 1vw;
     .balance {
