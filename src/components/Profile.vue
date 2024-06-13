@@ -4,6 +4,14 @@
   const profile = inject('profile')
   const user = inject('user')
   const balance = 999999
+  const rating = 3.3
+
+  function divide(value) {
+    return {
+      'full': Math.floor(value),
+      'part': (1 - value + Math.floor(value)) * 100,
+    }
+  }
 </script>
 
 <template>
@@ -19,12 +27,37 @@
       <div class="balance">
         <h1>Баланс</h1>
         <div class="addButton">
-          <p>{{slash(balance)}} Shr</p>
+          <p>{{balance}} Shr</p>
           <img src="/addBalance.svg" alt="пополнить баланс">
         </div>
         
       </div>
+      <div class="balance">
+        <h1>Рейтинг</h1>
 
+
+        <div class="rating">
+          <div class="bgStar">
+            <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg" v-for="i in 5" :key="i">
+              <path d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#22252C"/>
+            </svg>
+          </div>
+          <div class="stars">
+            <div v-for="i in divide(rating).full" :key="i">
+              <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
+              </svg>
+            </div>
+            <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg" :style="`margin-left: calc(-0.27 * ${divide(rating).part}px)`">
+              <path :style="`transform: translateX(${divide(rating).part}%);`" d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
+            </svg>
+          </div>
+
+          <h1>{{rating}}</h1>
+        </div>
+
+
+      </div>
 
     </div>
   </div>
@@ -92,7 +125,6 @@
     top: 7.03vw;
     width: calc(30.9375vw - 2vw);
     min-height: calc(100vh - 7.03vw);
-    display: flex;
     padding-left: 1vw;
     padding-right: 1vw;
     .balance {
@@ -131,6 +163,24 @@
       }
 
     }
-
+    .rating {
+      display: flex;
+      svg {
+        margin-right: .3vw;
+      }
+      h1 {
+        margin-top: 4px;
+        margin-left: .8vw;
+        color: #5C6973;
+      }
+      .bgStar {
+        display: flex;
+        z-index: -1;
+      }
+      .stars {
+        display: flex;
+        position: absolute;
+      }
+    }
   }
 </style>
