@@ -37,14 +37,22 @@
 
 
         <div class="rating">
-          <div v-for="i in divide(rating).full" :key="i">
-            <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
+          <div class="bgStar">
+            <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg" v-for="i in 5" :key="i">
+              <path d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#22252C"/>
             </svg>
           </div>
-          <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg" :style="`margin-left: calc(-0.27 * ${divide(rating).part}px)`">
-            <path :style="`transform: translateX(${divide(rating).part}%);`" d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
-          </svg>
+          <div class="stars">
+            <div v-for="i in divide(rating).full" :key="i">
+              <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
+              </svg>
+            </div>
+            <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg" :style="`margin-left: calc(-0.27 * ${divide(rating).part}px)`">
+              <path :style="`transform: translateX(${divide(rating).part}%);`" d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
+            </svg>
+          </div>
+
           <h1>{{rating}}</h1>
         </div>
 
@@ -164,6 +172,14 @@
         margin-top: 4px;
         margin-left: .8vw;
         color: #5C6973;
+      }
+      .bgStar {
+        display: flex;
+        z-index: -1;
+      }
+      .stars {
+        display: flex;
+        position: absolute;
       }
     }
   }
