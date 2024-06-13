@@ -52,8 +52,9 @@
               <path :style="`transform: translateX(${divide(rating).part}%);`" d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
             </svg>
           </div>
-
-          <h1>{{rating}}</h1>
+          <div class="rate">
+            <h1>{{rating}}</h1>
+          </div>
         </div>
 
 
@@ -165,21 +166,20 @@
     }
     .rating {
       display: flex;
-      svg {
-        margin-right: .3vw;
-      }
-      h1 {
-        margin-top: 4px;
-        margin-left: .8vw;
-        color: #5C6973;
-      }
-      .bgStar {
+      height: 2vw;
+      .rate {
         display: flex;
-        z-index: -1;
+        justify-content: center;
+        align-items: center;
+        margin-left: .6vw;
+        padding-top: .5vw;
+      }
+      svg {
+        height: 2vw;
       }
       .stars {
-        display: flex;
         position: absolute;
+        display: flex;
       }
     }
   }
