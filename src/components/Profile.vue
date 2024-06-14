@@ -5,6 +5,43 @@
   const user = inject('user')
   const balance = 999999
   const rating = 3.3
+  const offers = [
+    {
+      id: 1432,
+      name: 'кр по обж',
+      author: 'muingMan',
+      date: '17.03.2024',
+      price: '1234'
+    },
+    {
+      id: 1433,
+      name: 'кр по обж',
+      author: 'muingMan',
+      date: '17.03.2024',
+      price: '1234'
+    },
+    {
+      id: 1434,
+      name: 'кр по обж',
+      author: 'muingMan',
+      date: '17.03.2024',
+      price: '1234'
+    },
+  ]
+  const isOpen = ref(false)
+  const isOffers = (value) => {
+    if (value < 2) {
+      return value
+    }
+    return 2
+  }
+  function lastOffers(allOffers) {
+    let result = []
+    for (let i = 0; i < isOffers(allOffers.length); i++) {
+      result.push(allOffers[i])
+    }
+    return result
+  }
 
   function divide(value) {
     return {
@@ -18,10 +55,11 @@
   <div class="bg">
   </div>
   <div class="profile">
-      <div class="back" @click="profile = 0">
+    <div class="back" @click="profile = 0">
         <img src="/public/arrow-left.svg" alt="arrow">
         <button>Назад</button>
       </div>
+    <span class="username">Muing Man</span>
     <div class="divider"></div>
     <div class="info">
       <div class="balance">
@@ -34,8 +72,6 @@
       </div>
       <div class="balance">
         <h1>Рейтинг</h1>
-
-
         <div class="rating">
           <div class="bgStar">
             <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg" v-for="i in 5" :key="i">
@@ -56,8 +92,54 @@
             <h1>{{rating}}</h1>
           </div>
         </div>
+      </div>
+      <div class="infoDivider"></div>
+      <div class="offers">
+        <h1>Мои сделки</h1>
+        <div class="myOffers">
+          <div v-if="!offers.length" class="noOffers">
+            <img src="/empty-busket.svg" alt="empty basket">
+            <h1>Сделок нет</h1>
+          </div>
+          <div v-if="!isOpen">
+            <div class="offerCard" v-for="offer in lastOffers(offers)" :key="offer.id">
+              <h1>{{ offer.name }}</h1>
+              <div class="offerData">
+                <p>{{ offer.author }}</p>
+                <p>{{ offer.date }}</p>
+              </div>
+              <div class="offerData">
+                <p>Сделка {{ offer.id }}</p>
+                <p>{{ offer.price }} Shr</p>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div class="offerCard" v-for="offer in offers" :key="offer.id">
+              <h1>{{ offer.name }}</h1>
+              <div class="offerData">
+                <p>{{ offer.author }}</p>
+                <p>{{ offer.date }}</p>
+              </div>
+              <div class="offerData">
+                <p>Сделка {{ offer.id }}</p>
+                <p>{{ offer.price }} Shr</p>
+              </div>
+            </div>
+          </div>
 
 
+          <div class="offerInfo" v-if="offers.length >= 1">
+            <h1 v-if="!isOpen">{{isOffers(offers.length)}} из {{ offers.length }}</h1>
+            <h1 v-else>{{ offers.length }} из {{ offers.length }}</h1>
+            <div class="open" @click="isOpen = !isOpen">
+              <img src="/arrow-down.svg" alt="arrow down" v-if="!isOpen">
+              <img src="/arrow-down.svg" alt="arrow up" v-else style="rotate: 180deg; margin-top: -.1vw">
+              <h1 v-if="!isOpen">ещё</h1>
+              <h1 v-else>Скрыть</h1>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -83,7 +165,7 @@
     width: 30.9375vw;
     opacity: 1;
     height: 100%;
-    background: #000;
+    background: linear-gradient(#1B1C1E, #111112);
     z-index: 10;
     border-left: 2px solid;
     border-image: linear-gradient(#697783, #373E44) 1;
@@ -128,18 +210,20 @@
     min-height: calc(100vh - 7.03vw);
     padding-left: 1vw;
     padding-right: 1vw;
+    h1 {
+      margin: 0;
+      font-size: 1.5vw;
+      color: #BBBBBB;
+    }
     .balance {
-      margin-top: 2vw;
-      width: 100%;
+      margin-top: 3vw;
+      margin-bottom: 2vw;
+      width: calc(100% - 2vw);
+      padding: 0 1vw;
       max-height: 1vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      h1 {
-        margin: 0;
-        font-size: 1.5vw;
-        color: #BBBBBB;
-      }
       .addButton {
         display: flex;
         align-items: center;
@@ -182,5 +266,88 @@
         display: flex;
       }
     }
+    .infoDivider {
+      width: 100%;
+      height: 2px;
+      background: #667480;
+      margin-top: 3vw;
+    }
+    .offers {
+      padding: 0 1vw 2vw;
+      h1 {
+        margin-top: 2vw;
+      }
+      .myOffers {
+        position: relative;
+        margin-top: 2vw;
+        min-height: 5vw;
+        border: 1px solid #292E33;
+        border-radius: 0.8vw;
+        background: #000;
+        padding-bottom: 2.3vw;
+        .offerInfo {
+          display: flex;
+          position: absolute;
+          bottom: 0;
+          width: calc(100% - 2vw);
+          height: 2.3vw;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 1vw;
+          h1 {
+            margin: 0;
+            font-size: 1.15vw;
+          }
+          .open {
+            display: flex;
+            gap: .4vw;
+            cursor: pointer;
+            img {
+              margin-top: .3vw;
+            }
+          }
+        }
+        .offerCard {
+          h1 {
+            margin: 0;
+          }
+          height: 5vw;
+          width: calc(100% - 2vw);
+          padding: 0 1vw;
+          border-bottom: 1px solid #292E33;
+          margin-top: .5vw;
+          .offerData {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            p {
+              margin: 0;
+              color: #5C6973;
+            }
+          }
+        }
+        .noOffers {
+          margin-top: 2.3vw;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            width: 5vw;
+            height: 5vw;
+          }
+          h1 {
+            margin: .3vw 1vw 0;
+          }
+        }
+      }
+    }
+  }
+  .username {
+    top: 2.5vw;
+    right: 2vw;
+    position: absolute;
+    color: #BBBBBB;
+    font-size: 1.5vw;
+    font-weight: bold;
   }
 </style>
