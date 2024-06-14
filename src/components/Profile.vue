@@ -1,6 +1,5 @@
 <script setup>
   import { inject, ref } from 'vue'
-  import slash from '@/functions.js'
   const profile = inject('profile')
   const user = inject('user')
   const balance = 999999
