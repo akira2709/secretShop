@@ -172,7 +172,7 @@
         justify-content: center;
         align-items: center;
         margin-left: .6vw;
-        padding-top: .5vw;
+        padding-top: .3vw;
       }
       svg {
         height: 2vw;
