@@ -1,10 +1,6 @@
 <script setup>
   import { onMounted, watch, ref, reactive, provide } from 'vue';
   import axios from 'axios'
-  import Header from './components/Header.vue'
-  import SideBar from './components/SideBar.vue'
-  import Main from './components/Main.vue'
-  import Profile from './components/Profile.vue';
 
   const host = 'http://0.0.0.0:5000/'
 
@@ -35,10 +31,7 @@
 </script>
 
 <template class="tem">
-  <Header />
-  <SideBar />
-  <Main />
-  <Profile v-if="profile"/>
+  <RouterView></RouterView>
 </template>
 
 

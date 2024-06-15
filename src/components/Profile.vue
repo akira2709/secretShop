@@ -1,5 +1,5 @@
 <script setup>
-  import { inject, ref } from 'vue'
+  import { inject, onMounted, ref } from 'vue'
   const profile = inject('profile')
   const user = inject('user')
   const balance = 999999
@@ -54,10 +54,12 @@
   <div class="bg">
   </div>
   <div class="profile">
-    <div class="back" @click="profile = 0">
+    <RouterLink to="/">
+      <div class="back">
         <img src="/public/arrow-left.svg" alt="arrow">
         <button>Назад</button>
       </div>
+    </RouterLink>
     <span class="username">Muing Man</span>
     <div class="divider"></div>
     <div class="info">
@@ -168,6 +170,7 @@
     z-index: 10;
     border-left: 2px solid;
     border-image: linear-gradient(#697783, #373E44) 1;
+    animation: opening .3s forwards;
   }
   .back {
     display: flex;
@@ -348,5 +351,13 @@
     color: #BBBBBB;
     font-size: 1.5vw;
     font-weight: bold;
+  }
+  @keyframes opening {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 30.9375vw;
+    }
   }
 </style>

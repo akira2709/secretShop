@@ -10,18 +10,20 @@
 
 <template>
    <header class="header">
-      <img src="/public/logoBlack.png" alt="logo" class="logo">
+     <img src="/public/logoBlack.png" alt="logo" class="logo">
       <div class="profile">
-         <div class="info" @click="profile = 1">
-            <p class="name" @click="profile = 1">MewingMan</p>
-            <div class="balance" @click="profile = 1">
+         <div class="info">
+            <RouterLink to="/profile"><p class="name">MewingMan</p></RouterLink>
+            <div class="balance">
                <p>{{ slash(balance) }}</p>
                <img src="/public/shard.svg" alt="shard" class="shardIcon">
             </div>
          </div>
-         <div class="avatar">
-            <img src="/public/logo.jpg" alt="avatar" @click="profile = 1">
-         </div>
+        <RouterLink to="/profile">
+          <div class="avatar">
+            <img src="/public/logo.jpg" alt="avatar">
+          </div>
+        </RouterLink>
       </div>
    </header>
 
