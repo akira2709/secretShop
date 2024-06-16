@@ -54,12 +54,10 @@
   <div class="bg">
   </div>
   <div class="profile">
-    <RouterLink to="/">
-      <div class="back">
-        <img src="/public/arrow-left.svg" alt="arrow">
-        <button>Назад</button>
-      </div>
-    </RouterLink>
+    <div class="back" @click="$router.push('/')">
+      <img src="/public/arrow-left.svg" alt="arrow">
+      <button>Назад</button>
+    </div>
     <span class="username">Muing Man</span>
     <div class="divider"></div>
     <div class="info">
@@ -151,7 +149,7 @@
   .bg {
     position: fixed;
     top: 0;
-    width: 69.0625vw;
+    width: 100vw;
     height: 100vh;
     background: #000;
     z-index: 9;

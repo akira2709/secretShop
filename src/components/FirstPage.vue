@@ -6,9 +6,10 @@
 </script>
 
 <template>
-    <Header />
-    <SideBar />
-    <Main />
+  <Header />
+  <SideBar />
+  <Main />
+  <RouterView></RouterView>
 </template>
 
 <style scoped>

@@ -13,7 +13,7 @@
      <img src="/public/logoBlack.png" alt="logo" class="logo">
       <div class="profile">
          <div class="info">
-            <RouterLink to="/profile"><p class="name">MewingMan</p></RouterLink>
+            <RouterLink :to="{path: '/profile'}"><p class="name">MewingMan</p></RouterLink>
             <div class="balance">
                <p>{{ slash(balance) }}</p>
                <img src="/public/shard.svg" alt="shard" class="shardIcon">
