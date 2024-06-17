@@ -41,11 +41,11 @@
         <div class="logo">
           <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
         </div>
-        <p>магазин нужых работ</p>
+        <p>{{ subject.name }}</p>
         <div class="buttonsBox">
           <button class="send">Отправить</button>
           <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
+          <button class="buy" @click="$router.push(`/${subject.name}`)">Купить</button>
         </div>
       </div>
 		</div>
@@ -56,11 +56,11 @@
 <style scoped>
 .main {
 	user-select: none;
-	padding-top: 2.24vw;
+	padding: 2.24vw 0;
 	margin-left: auto;
 	margin-right: auto;
 	width: 74.6vw;
-	height: 81.8vh;
+	min-height: 81.8vh;
 } 
 .searchBox {
 	display: flex;
