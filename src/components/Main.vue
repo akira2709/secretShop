@@ -19,138 +19,6 @@
 					<button class="buy">Купить</button>
 				</div>
 			</div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
-      <div class="orderCard">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>магазин нужых работ</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy">Купить</button>
-        </div>
-      </div>
 		</div>
 		
 	</main>
@@ -163,7 +31,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	width: 74.6vw;
-	min-height: 81.8vh;
+	min-height: calc(81.8vh - 2.24vw);
 } 
 .searchBox {
 	display: flex;
