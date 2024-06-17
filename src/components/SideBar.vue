@@ -6,7 +6,7 @@
 			<img src="/public/book.svg" alt="book" class="book">
 		</div>
 		<div class="divider"></div>
-		<div class="filterbox">
+		<div class="filterbox" @click="$router.push({name: 'filters'})">
 			<img src="/public/filter.svg" alt="filter" class="filter">
 		</div>
 		<div class="changebox">

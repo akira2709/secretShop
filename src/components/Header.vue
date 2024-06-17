@@ -13,17 +13,15 @@
      <img src="/public/logoBlack.png" alt="logo" class="logo">
       <div class="profile">
          <div class="info">
-            <RouterLink :to="{path: '/profile'}"><p class="name">MewingMan</p></RouterLink>
+            <p class="name" @click="$router.push({name: 'profile'})">MewingMan</p>
             <div class="balance">
                <p>{{ slash(balance) }}</p>
                <img src="/public/shard.svg" alt="shard" class="shardIcon">
             </div>
          </div>
-        <RouterLink to="/profile">
-          <div class="avatar">
-            <img src="/public/logo.jpg" alt="avatar">
-          </div>
-        </RouterLink>
+        <div class="avatar" @click="$router.push({name: 'profile'})">
+          <img src="/public/logo.jpg" alt="avatar">
+        </div>
       </div>
    </header>
 

@@ -54,7 +54,7 @@
   <div class="bg">
   </div>
   <div class="profile">
-    <div class="back" @click="$router.push('/')">
+    <div class="back" @click="$router.go(-1)">
       <img src="/public/arrow-left.svg" alt="arrow">
       <button>Назад</button>
     </div>

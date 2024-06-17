@@ -1,4 +1,22 @@
 <script setup>
+  const subjects = [
+    {
+      name: 'math',
+      description: 'Math is a science...'
+    },
+    {
+      name: 'russian',
+      description: 'Math is a science...'
+    },
+    {
+      name: 'IT',
+      description: 'Math is a science...'
+    },
+    {
+      name: 'Biology',
+      description: 'Math is a science...'
+    },
+  ]
 </script>
 
 <template>
@@ -19,8 +37,19 @@
 					<button class="buy">Купить</button>
 				</div>
 			</div>
+      <div class="orderCard" v-for="subject in subjects">
+        <div class="logo">
+          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
+        </div>
+        <p>магазин нужых работ</p>
+        <div class="buttonsBox">
+          <button class="send">Отправить</button>
+          <button class="request">Запросить</button>
+          <button class="buy">Купить</button>
+        </div>
+      </div>
 		</div>
-		
+
 	</main>
 </template>
 
