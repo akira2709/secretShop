@@ -60,7 +60,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	width: 74.6vw;
-	min-height: 81.8vh;
+	min-height: calc(81.8vh - 2.24vw);
 } 
 .searchBox {
 	display: flex;
