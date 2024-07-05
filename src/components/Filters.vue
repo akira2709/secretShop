@@ -2,52 +2,7 @@
 import { inject, onMounted, ref } from 'vue'
 const profile = inject('profile')
 const user = inject('user')
-const balance = 999999
-const rating = 3.3
-const offers = [
-  {
-    id: 1432,
-    name: 'кр по обж',
-    author: 'muingMan',
-    date: '17.03.2024',
-    price: '1234'
-  },
-  {
-    id: 1433,
-    name: 'кр по обж',
-    author: 'muingMan',
-    date: '17.03.2024',
-    price: '1234'
-  },
-  {
-    id: 1434,
-    name: 'кр по обж',
-    author: 'muingMan',
-    date: '17.03.2024',
-    price: '1234'
-  },
-]
 const isOpen = ref(false)
-const isOffers = (value) => {
-  if (value < 2) {
-    return value
-  }
-  return 2
-}
-function lastOffers(allOffers) {
-  let result = []
-  for (let i = 0; i < isOffers(allOffers.length); i++) {
-    result.push(allOffers[i])
-  }
-  return result
-}
-
-function divide(value) {
-  return {
-    'full': Math.floor(value),
-    'part': (1 - value + Math.floor(value)) * 100,
-  }
-}
 </script>
 
 <template>
