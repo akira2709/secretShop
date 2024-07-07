@@ -9,7 +9,6 @@ export default function slash(value) {
 }
 
 export async function checkIsAuth() {
-  // this will call onmount
   let user;
   let cookie = document.cookie;
   let token = null;
