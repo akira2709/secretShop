@@ -106,7 +106,7 @@
 		width: 100%;
 		height: 2.24vw;
 	}
-	
+
 	p {
 		font-size: 1.1vw;
 		margin-top: 0.5vw;

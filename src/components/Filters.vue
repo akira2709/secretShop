@@ -1,6 +1,5 @@
 <script setup>
 import { inject, onMounted, ref } from 'vue'
-const profile = inject('profile')
 const user = inject('user')
 const isOpen = ref(false)
 </script>
@@ -20,15 +19,7 @@ const isOpen = ref(false)
 </template>
 
 <style scoped>
-.bg {
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #000;
-  z-index: 9;
-  opacity: 0.8;
-}
+
 .profile {
   user-select: none;
   overflow: scroll;

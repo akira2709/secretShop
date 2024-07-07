@@ -1,39 +1,71 @@
 <script setup>
   import { onMounted, watch, ref, reactive, provide } from 'vue';
-  import axios from 'axios'
+  import { checkIsAuth, Auth } from './functions.js'
 
-  const host = 'http://0.0.0.0:5000/'
-
-  const user = ref()
-  const profile = ref(false)
-  async function Auth () {
-    const {data} = await axios.get(`${host}auth`);
-    const token = encodeURIComponent(data);
-    document.cookie = `token=${token}`;
-    window.location.href = `https://t.me/dfgvcxz_bot?start=${token}`;
-  }
-
-  async function isRegister () {
-    let cookie = document.cookie.split('=')[1]
-    try {
-      const {data} = await axios.get(`${host}login/${cookie}`)
-      if (data) {
-        user.value = data[0]
-      }
-    } catch (er) {console.log(er)}
-  }
+  const user = ref(null)
   onMounted(async () => {
-    await isRegister()
+    user.value = await checkIsAuth()
   })
-  provide('profile', profile)
-  provide('Auth', Auth)
   provide('user', user)
 </script>
 
 <template class="tem">
-  <RouterView></RouterView>
+  <div v-if="!user">
+    <div class="bg">
+      <div class="auth">
+        <div class="container">
+          <div class="cont">
+            <div class="tg">
+              <div class="logo">
+                <img src="/logoMe2Me.svg" alt="logo" class="logoImg"/>
+              </div>
+              <p class="bot">@t.me/meTWOme_bot</p>
+            </div>
+            <div class="btn-box">
+              <button @click="Auth()">Авторизоваться</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <RouterView v-else></RouterView>
 </template>
 
 
 <style scoped>
+.tg {
+  background: #1e1e1e;
+  position: relative;
+  width: 15vw;
+  height: 25vh;
+  border-radius: 16px;
+  .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15vw;
+    height: 25vh;
+  }
+  .logoImg {
+    margin-top: -6vh;
+    width: 10vw;
+    height: 25vh;
+  }
+  .bot {
+    cursor: pointer;
+    position: absolute;
+    top: 17vh;
+    left: 2vw;
+    color: #A6AEA3;
+  }
+}
+
+.btn-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 5vh;
+}
 </style>

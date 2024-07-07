@@ -1,6 +1,5 @@
 <script setup>
   import { inject, onMounted, ref } from 'vue'
-  const profile = inject('profile')
   const user = inject('user')
   const balance = 999999
   const rating = 3.3
@@ -53,7 +52,7 @@
 <template>
   <div class="bg">
   </div>
-  <div class="profile">
+  <div class="profile" v-if="user">
     <div class="back" @click="$router.go(-1)">
       <img src="/public/arrow-left.svg" alt="arrow">
       <button>Назад</button>
@@ -67,7 +66,7 @@
           <p>{{balance}} Shr</p>
           <img src="/addBalance.svg" alt="пополнить баланс">
         </div>
-        
+
       </div>
       <div class="balance">
         <h1>Рейтинг</h1>
@@ -143,18 +142,16 @@
 
     </div>
   </div>
+  <div class="profile" v-else>
+    <div class="back" @click="$router.go(-1)">
+      <img src="/public/arrow-left.svg" alt="arrow">
+      <button>Назад</button>
+    </div>
+    <div class="divider"></div>
+  </div>
 </template>
 
 <style scoped>
-  .bg {
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    z-index: 9;
-    opacity: 0.8;
-  }
   .profile {
     user-select: none;
     overflow: scroll;
