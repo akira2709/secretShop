@@ -1,7 +1,7 @@
 <script setup>
    import { inject, ref } from 'vue'
    import slash from '@/functions.js'
-   const balance = ref(999999)
+   const user = inject('user')
 </script>
 
 
@@ -11,9 +11,9 @@
      <img src="/public/logoBlack.png" alt="logo" class="logo">
       <div class="profile">
          <div class="info">
-            <p class="name" @click="$router.push({name: 'profile'})">MewingMan</p>
+            <p class="name" @click="$router.push({name: 'profile'})">{{ user.username }}</p>
             <div class="balance">
-               <p>{{ slash(balance) }}</p>
+               <p>{{ slash(user.amount) }}</p>
                <img src="/public/shard.svg" alt="shard" class="shardIcon">
             </div>
          </div>

@@ -1,31 +1,6 @@
 <script setup>
   import { inject, onMounted, ref } from 'vue'
   const user = inject('user')
-  const balance = 999999
-  const rating = 3.3
-  const offers = [
-    {
-      id: 1432,
-      name: 'кр по обж',
-      author: 'muingMan',
-      date: '17.03.2024',
-      price: '1234'
-    },
-    {
-      id: 1433,
-      name: 'кр по обж',
-      author: 'muingMan',
-      date: '17.03.2024',
-      price: '1234'
-    },
-    {
-      id: 1434,
-      name: 'кр по обж',
-      author: 'muingMan',
-      date: '17.03.2024',
-      price: '1234'
-    },
-  ]
   const isOpen = ref(false)
   const isOffers = (value) => {
     if (value < 2) {
@@ -57,13 +32,13 @@
       <img src="/public/arrow-left.svg" alt="arrow">
       <button>Назад</button>
     </div>
-    <span class="username">Muing Man</span>
+    <span class="username">{{ user.username }}</span>
     <div class="divider"></div>
     <div class="info">
       <div class="balance">
         <h1>Баланс</h1>
         <div class="addButton">
-          <p>{{balance}} Shr</p>
+          <p>{{user.amount}} Shr</p>
           <img src="/addBalance.svg" alt="пополнить баланс">
         </div>
 
@@ -77,17 +52,17 @@
             </svg>
           </div>
           <div class="stars">
-            <div v-for="i in divide(rating).full" :key="i">
+            <div v-for="i in divide(user.rating).full" :key="i">
               <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
               </svg>
             </div>
             <svg width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg" :style="`margin-left: calc(-0.27 * ${divide(rating).part}px)`">
-              <path :style="`transform: translateX(${divide(rating).part}%);`" d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
+              <path :style="`transform: translateX(${divide(user.rating).part}%);`" d="M8.32923 16.0349L0 9.9116H10.3038L13.5 0L16.6962 9.9116H27L18.6708 16.0349L21.8842 26L13.5 19.8363L5.11579 26L8.32923 16.0349Z" fill="#5C6973"/>
             </svg>
           </div>
           <div class="rate">
-            <h1>{{rating}}</h1>
+            <h1>{{user.rating}}</h1>
           </div>
         </div>
       </div>
@@ -95,12 +70,12 @@
       <div class="offers">
         <h1>Мои сделки</h1>
         <div class="myOffers">
-          <div v-if="!offers.length" class="noOffers">
+          <div v-if="!user.purchases.length" class="noOffers">
             <img src="/empty-busket.svg" alt="empty basket">
             <h1>Сделок нет</h1>
           </div>
           <div v-if="!isOpen">
-            <div class="offerCard" v-for="offer in lastOffers(offers)" :key="offer.id">
+            <div class="offerCard" v-for="offer in lastOffers(user.purchases)" :key="offer.id">
               <h1>{{ offer.name }}</h1>
               <div class="offerData">
                 <p>{{ offer.author }}</p>
@@ -113,7 +88,7 @@
             </div>
           </div>
           <div v-else>
-            <div class="offerCard" v-for="offer in offers" :key="offer.id">
+            <div class="offerCard" v-for="offer in user.purchases" :key="offer.id">
               <h1>{{ offer.name }}</h1>
               <div class="offerData">
                 <p>{{ offer.author }}</p>
@@ -127,9 +102,9 @@
           </div>
 
 
-          <div class="offerInfo" v-if="offers.length >= 1">
-            <h1 v-if="!isOpen">{{isOffers(offers.length)}} из {{ offers.length }}</h1>
-            <h1 v-else>{{ offers.length }} из {{ offers.length }}</h1>
+          <div class="offerInfo" v-if="user.purchases.length >= 1">
+            <h1 v-if="!isOpen">{{isOffers(user.purchases.length)}} из {{ user.purchases.length }}</h1>
+            <h1 v-else>{{ user.purchases.length }} из {{ user.purchases.length }}</h1>
             <div class="open" @click="isOpen = !isOpen">
               <img src="/arrow-down.svg" alt="arrow down" v-if="!isOpen">
               <img src="/arrow-down.svg" alt="arrow up" v-else style="rotate: 180deg; margin-top: -.1vw">

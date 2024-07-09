@@ -1,7 +1,6 @@
 <script setup>
 import { inject, onMounted, ref } from 'vue'
 const user = inject('user')
-const isOpen = ref(false)
 </script>
 
 <template>
@@ -12,7 +11,7 @@ const isOpen = ref(false)
       <img src="/public/arrow-left.svg" alt="arrow">
       <button>Назад</button>
     </div>
-    <span class="username">Muing Man</span>
+    <span class="username">{{ user.username }}</span>
     <div class="divider"></div>
 
   </div>

@@ -1,10 +1,13 @@
 <script setup>
   import { onMounted, watch, ref, reactive, provide } from 'vue';
-  import { checkIsAuth, Auth } from './functions.js'
+  import { checkIsAuth, Auth, checkJWT } from './functions.js'
 
   const user = ref(null)
   onMounted(async () => {
-    user.value = await checkIsAuth()
+    user.value = await checkJWT()
+    if (!user.value) {
+      user.value = await checkIsAuth()
+    }
   })
   provide('user', user)
 </script>
