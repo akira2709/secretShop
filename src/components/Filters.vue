@@ -1,6 +1,12 @@
 <script setup>
 import { inject, onMounted, ref } from 'vue'
+import FilterBlock from '@/components/forFilters/FilterBlock.vue'
 const user = inject('user')
+const params = {
+  subject: ['Математика', 'Русский язык', 'ОБЖ', 'Информатика'],
+  classNumber: ['6 класс', '7 класс', '8 класс', '9 класс', '10 класс', '11 класс'],
+  workType: ['Самостоятельная работа', 'Контрольная работа', 'Домашняя работа'],
+}
 </script>
 
 <template>
@@ -13,7 +19,11 @@ const user = inject('user')
     </div>
     <span class="username">{{ user.username }}</span>
     <div class="divider"></div>
-
+    <div class="info">
+      <FilterBlock title="Предмет" :values="params.subject"></FilterBlock>
+      <FilterBlock title="Класс" :values="params.classNumber"></FilterBlock>
+      <FilterBlock title="Тип" :values="params.workType"></FilterBlock>
+    </div>
   </div>
 </template>
 
@@ -71,9 +81,8 @@ const user = inject('user')
   position: absolute;
   top: 7.03vw;
   width: calc(30.9375vw - 2vw);
-  min-height: calc(100vh - 7.03vw);
-  padding-left: 1vw;
-  padding-right: 1vw;
+  min-height: calc(100vh - 9.03vw);
+  padding: 1vw;
   h1 {
     margin: 0;
     font-size: 1.5vw;
