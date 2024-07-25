@@ -1,5 +1,5 @@
 <script setup>
-import { inject, onMounted, ref } from 'vue'
+import { inject } from 'vue'
 import FilterBlock from '@/components/forFilters/FilterBlock.vue'
 const user = inject('user')
 const params = {
