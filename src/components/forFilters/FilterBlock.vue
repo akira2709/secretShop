@@ -1,7 +1,7 @@
 <script setup>
-  import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
   import SelectBlock from '@/components/forFilters/SelectBlock.vue'
-  defineProps({
+  const props = defineProps({
     title: String,
     values: Array,
   })

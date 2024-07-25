@@ -3,6 +3,7 @@
   import { checkIsAuth, Auth, checkJWT } from './functions.js'
 
   const user = ref(null)
+  const filters = ref([])
   onMounted(async () => {
     user.value = await checkJWT()
     if (!user.value) {
@@ -10,6 +11,7 @@
     }
   })
   provide('user', user)
+  provide('filters', filters)
 </script>
 
 <template class="tem">

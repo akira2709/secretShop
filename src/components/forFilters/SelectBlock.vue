@@ -1,16 +1,24 @@
 <script setup>
-  import { ref } from 'vue'
-  defineProps({
+import { inject } from 'vue'
+  const props = defineProps({
     value: String,
   })
-  const isSelected = ref(false)
+  const filters = inject('filters')
+  function action(val) {
+    if (check(val, filters.value)) {
+      filters.value = filters.value.filter((el) => el !== val)
+    } else {filters.value.push(val)}
+  }
+  function check(val, arr) {
+    return arr.includes(val)
+  }
 </script>
 
 <template>
   <div class="select">
     <p>{{ value }}</p>
-    <div class="inp" @click="isSelected = !isSelected">
-      <img src="/arrow.svg" alt="arrow" v-if="isSelected">
+    <div class="inp" @click="action(value)">
+      <img src="/arrow.svg" alt="arrow" v-if="check(value, filters)">
     </div>
   </div>
 </template>
