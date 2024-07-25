@@ -1,5 +1,5 @@
 <script setup>
-  import { inject, onMounted, ref } from 'vue'
+  import { inject, ref } from 'vue'
   const user = inject('user')
   const isOpen = ref(false)
   const isOffers = (value) => {
