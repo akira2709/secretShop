@@ -1,12 +1,7 @@
 <script setup>
-import { inject } from 'vue'
-import FilterBlock from '@/components/forFilters/FilterBlock.vue'
-const user = inject('user')
-const params = {
-  subject: ['Математика', 'Русский язык', 'ОБЖ', 'Информатика'],
-  classNumber: ['6 класс', '7 класс', '8 класс', '9 класс', '10 класс', '11 класс'],
-  workType: ['Самостоятельная работа', 'Контрольная работа', 'Домашняя работа'],
-}
+  import { inject } from 'vue'
+
+  const user = inject('user')
 </script>
 
 <template>
@@ -20,9 +15,6 @@ const params = {
     <span class="username">{{ user.username }}</span>
     <div class="divider"></div>
     <div class="info">
-      <FilterBlock title="Предмет" :values="params.subject"></FilterBlock>
-      <FilterBlock title="Класс" :values="params.classNumber"></FilterBlock>
-      <FilterBlock title="Тип" :values="params.workType"></FilterBlock>
     </div>
   </div>
 </template>
