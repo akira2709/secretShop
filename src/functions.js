@@ -53,7 +53,7 @@ export async function checkJWT() {
     })
     if (response.ok) {
       user = await response.json();
-      document.cookie = `jwt_token=${user.jwt_token}`;
+      document.cookie = `jwt_token=${user.jwt_token}; SameSite=None; secure`;
     }
     else {
       document.cookie = 'jwt_token=; max-age=-1';

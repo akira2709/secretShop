@@ -6,7 +6,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import FirstPage from '@/components/FirstPage.vue'
 import Profile from '@/components/Profile.vue'
 import Filters from '@/components/Filters.vue'
-import Main from '@/components/Main.vue'
+import Basket from '@/components/Basket.vue'
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -14,7 +14,8 @@ const router = createRouter({
 		{ path: '/', redirect: '/main' },
 		{ path: '/:subject', component: FirstPage, children: [
 			{path: '/:subject/profile', component: Profile, name: 'profile', alias: ['/:subject/profile']},
-			{path: '/:subject/filters', component: Filters, name: 'filters', alias: ['/:subject/profile']},
+			{path: '/:subject/filters', component: Filters, name: 'filters', alias: ['/:subject/filters']},
+			{path: '/:subject/basket', component: Basket, name: 'basket', alias: ['/:subject/basket']}
 			]},
 	],
 })

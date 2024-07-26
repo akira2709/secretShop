@@ -12,7 +12,7 @@
 		<div class="changebox">
 			<img src="/public/change.svg" alt="change" class="change">
 		</div>
-		<div class="basketbox">
+		<div class="basketbox" @click="$router.push({name: 'basket'})">
 			<img src="/public/basket.svg" alt="basket" class="basket">
 		</div>
 	</nav>
