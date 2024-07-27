@@ -41,7 +41,6 @@
           <p>{{user.amount}} Shr</p>
           <img src="/addBalance.svg" alt="пополнить баланс">
         </div>
-
       </div>
       <div class="balance">
         <h1>Рейтинг</h1>
@@ -70,12 +69,12 @@
       <div class="offers">
         <h1>Мои сделки</h1>
         <div class="myOffers">
-          <div v-if="!user.purchases.length" class="noOffers">
+          <div v-if="!user.my_offers.length" class="noOffers">
             <img src="/empty-busket.svg" alt="empty basket">
             <h1>Сделок нет</h1>
           </div>
           <div v-if="!isOpen">
-            <div class="offerCard" v-for="offer in lastOffers(user.purchases)" :key="offer.id">
+            <div class="offerCard" v-for="offer in lastOffers(user.my_offers)" :key="offer.id">
               <h1>{{ offer.name }}</h1>
               <div class="offerData">
                 <p>{{ offer.author }}</p>
@@ -88,7 +87,7 @@
             </div>
           </div>
           <div v-else>
-            <div class="offerCard" v-for="offer in user.purchases" :key="offer.id">
+            <div class="offerCard" v-for="offer in user.my_offers" :key="offer.id">
               <h1>{{ offer.name }}</h1>
               <div class="offerData">
                 <p>{{ offer.author }}</p>
@@ -100,11 +99,9 @@
               </div>
             </div>
           </div>
-
-
-          <div class="offerInfo" v-if="user.purchases.length >= 1">
-            <h1 v-if="!isOpen">{{isOffers(user.purchases.length)}} из {{ user.purchases.length }}</h1>
-            <h1 v-else>{{ user.purchases.length }} из {{ user.purchases.length }}</h1>
+          <div class="offerInfo" v-if="user.my_offers.length >= 1">
+            <h1 v-if="!isOpen">{{isOffers(user.my_offers.length)}} из {{ user.my_offers.length }}</h1>
+            <h1 v-else>{{ user.my_offers.length }} из {{ user.my_offers.length }}</h1>
             <div class="open" @click="isOpen = !isOpen">
               <img src="/arrow-down.svg" alt="arrow down" v-if="!isOpen">
               <img src="/arrow-down.svg" alt="arrow up" v-else style="rotate: 180deg; margin-top: -.1vw">
@@ -114,7 +111,52 @@
           </div>
         </div>
       </div>
-
+      <div class="infoDivider"></div>
+      <div class="offers history">
+        <h1>История сделок</h1>
+        <div class="myOffers">
+          <div v-if="!user.offers_history.length" class="noOffers">
+            <img src="/empty-busket.svg" alt="empty basket">
+            <h1>Сделок нет</h1>
+          </div>
+          <div v-if="!isOpen">
+            <div class="offerCard" v-for="offer in lastOffers(user.offers_history)" :key="offer.id">
+              <h1>{{ offer.name }}</h1>
+              <div class="offerData">
+                <p>{{ offer.author }}</p>
+                <p>{{ offer.date }}</p>
+              </div>
+              <div class="offerData">
+                <p>Сделка {{ offer.id }}</p>
+                <p>{{ offer.price }} Shr</p>
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div class="offerCard" v-for="offer in user.offers_history" :key="offer.id">
+              <h1>{{ offer.name }}</h1>
+              <div class="offerData">
+                <p>{{ offer.author }}</p>
+                <p>{{ offer.date }}</p>
+              </div>
+              <div class="offerData">
+                <p>Сделка {{ offer.id }}</p>
+                <p>{{ offer.price }} Shr</p>
+              </div>
+            </div>
+          </div>
+          <div class="offerInfo" v-if="user.offers_history.length >= 1">
+            <h1 v-if="!isOpen">{{isOffers(user.offers_history.length)}} из {{ user.offers_history.length }}</h1>
+            <h1 v-else>{{ user.offers_history.length }} из {{ user.offers_history.length }}</h1>
+            <div class="open" @click="isOpen = !isOpen">
+              <img src="/arrow-down.svg" alt="arrow down" v-if="!isOpen">
+              <img src="/arrow-down.svg" alt="arrow up" v-else style="rotate: 180deg; margin-top: -.1vw">
+              <h1 v-if="!isOpen">ещё</h1>
+              <h1 v-else>Скрыть</h1>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="profile" v-else>
@@ -245,7 +287,7 @@
       margin-top: 3vw;
     }
     .offers {
-      padding: 0 1vw 2vw;
+      padding: 0 1vw;
       h1 {
         margin-top: 2vw;
       }
@@ -329,5 +371,8 @@
     100% {
       width: 30.9375vw;
     }
+  }
+  .history {
+    margin-bottom: 2vw;
   }
 </style>

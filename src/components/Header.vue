@@ -1,5 +1,5 @@
 <script setup>
-   import { inject, ref } from 'vue'
+   import { inject } from 'vue'
    import slash from '@/functions.js'
    const user = inject('user')
 </script>
@@ -13,27 +13,25 @@
          <div class="info">
             <p class="name" @click="$router.push({name: 'profile'})">{{ user.username }}</p>
             <div class="balance">
-               <p>{{ slash(user.amount) }}</p>
-               <img src="/public/shard.svg" alt="shard" class="shardIcon">
+              <p>{{ slash(user.amount) }}</p>
+              <p>Shr</p>
+              <img src="/public/shard.svg" alt="shard" class="shardIcon">
             </div>
          </div>
-        <div class="avatar" @click="$router.push({name: 'profile'})">
-          <img src="/public/logo.jpg" alt="avatar">
-        </div>
       </div>
    </header>
-
 </template>
 <style scoped>
    .header {
       user-select: none;
-      margin-top: 1%;
+      margin-top: .5%;
       display: flex;
       margin-left: auto;
       margin-right: auto;
       width: 74.6%;
       height: 19.2%;
       border-bottom: 2px solid #6A7884;
+      padding-bottom: .5%;
    }
    .logo {
       height: 83%;
@@ -59,7 +57,6 @@
       width: 100%;
       border-radius: 100%;
    }
-   /* i'm here now, i need to make balance */
    .info {
       margin-left: auto;
    }
@@ -80,6 +77,6 @@
    .name {
       color: #BBBBBB;
       margin: 1vw 0 0 0;
-      font-size: 1.5vw;
+      font-size: 2vw;
    }
 </style>

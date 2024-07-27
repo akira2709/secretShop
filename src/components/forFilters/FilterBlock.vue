@@ -5,7 +5,7 @@ import { ref } from 'vue'
     title: String,
     values: Array,
   })
-  const isOpen = ref(false)
+  const isOpen = ref(true)
 </script>
 
 <template>
