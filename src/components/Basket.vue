@@ -1,12 +1,27 @@
 <script setup>
-  import { inject } from 'vue'
+import { inject } from 'vue'
   import BasketCart from '@/components/forBasket/BasketCart.vue'
-
   const user = inject('user')
-  function countPrice(basket) {
-    let totalPrice = 0;
-    basket.map((el) => totalPrice += el.price);
-    return totalPrice;
+  const totalPrice = inject('totalPrice')
+  const selectedItems = inject('selectedItems')
+  function countPrice(price, mode) {
+    if (mode === '+') {
+      totalPrice.value = Math.round((totalPrice.value + price) * 100) / 100
+    }
+    if (mode === '-') {
+      totalPrice.value = Math.round((totalPrice.value - price) * 100) / 100
+    }
+  }
+  function ending (val) {
+    if (val == 1 || String(val).slice(-1) == 1 && Number(val) > 20) {
+      return val + ' товар'
+    }
+    if (val >= 2 && val <= 4 || Number(String(val).slice(-1)) >= 2 && Number(String(val).slice(-1)) <= 4 && Number(val) > 20) {
+      return val + ' товара'
+    }
+    else {
+      return val + ' товаров'
+    }
   }
 </script>
 
@@ -24,8 +39,8 @@
       <div class="info">
         <div>
           <h1>Корзина</h1>
-          <p>{{ user.basket.length }} товаров</p>
-          <p>на сумму {{ countPrice(user.basket) }} shr</p>
+          <p>{{ ending(selectedItems.length) }}</p>
+          <p>на сумму {{ totalPrice }} shr</p>
         </div>
         <div class="select-btn">
           <button>Купить выбранное</button>
@@ -34,7 +49,7 @@
         </div>
       </div>
       <div class="infoDivider"></div>
-      <BasketCart :author="'ivan'" :price="1234"></BasketCart>
+      <BasketCart v-for="item_id in user.basket" :item_id="item_id" :countPrice="countPrice"></BasketCart>
     </div>
   </div>
 </template>

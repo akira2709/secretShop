@@ -4,6 +4,8 @@
 
   const user = ref(null)
   const filters = ref([])
+  const selectedItems = ref([])
+  const totalPrice = ref(0)
   onMounted(async () => {
     user.value = await checkJWT()
     if (!user.value) {
@@ -12,6 +14,8 @@
   })
   provide('user', user)
   provide('filters', filters)
+  provide('selectedItems', selectedItems)
+  provide('totalPrice', totalPrice)
 </script>
 
 <template class="tem">

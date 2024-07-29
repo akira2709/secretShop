@@ -61,3 +61,16 @@ export async function checkJWT() {
   }
   return user;
 }
+
+
+export async function getItem(itemId) {
+  let item;
+  let response = await fetch(url + `/get_item/${itemId}`, {
+    method: 'GET',
+    mode: 'cors',
+  })
+  if (response.ok) {
+    item = await response.json()
+  }
+  return item;
+}

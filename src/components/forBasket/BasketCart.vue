@@ -1,28 +1,51 @@
 <script setup>
+import { inject, onMounted, ref } from 'vue'
+import { getItem } from '@/functions.js'
+
 const props = defineProps({
-  author: String,
-  price: Number,
+  item_id: Number,
+  countPrice: Function,
 })
+const item = ref({
+  id: Number,
+  name: String,
+  price: Number,
+  date: Date,
+  author: String,
+});
+const selectedItems = inject('selectedItems')
+onMounted(async () => {
+  item.value = await getItem(props.item_id)
+})
+function select() {
+  if (!selectedItems.value.includes(item.value.id)) {
+    selectedItems.value.push(item.value.id)
+    props.countPrice(item.value.price, '+')
+  } else {
+    selectedItems.value.splice(selectedItems.value.indexOf(item.value.id), 1)
+    props.countPrice(item.value.price, '-')
+  }
+}
 </script>
 
 <template>
   <article>
     <div>
-      <h1>Контрольная, ОБЖ, 312453</h1>
+      <h1>Контрольная, ОБЖ, {{ item.id }}</h1>
     </div>
     <div class="info">
       <div>
         <p>
-          {{ author }}
+          {{ item.name }}
         </p>
         <p>
-          {{ price }} Shr
+          {{ item.price }} Shr
         </p>
       </div>
       <div class="buttons">
         <button>Купить</button>
-        <div class="inp">
-          <img src="/arrow.svg" alt="arrow">
+        <div class="inp" @click="select()">
+          <img src="/arrow.svg" alt="arrow" v-show="selectedItems.includes(item.id)">
         </div>
         <div class="inp">
           <img src="/cross.svg" alt="cross" id="cross">
@@ -75,10 +98,15 @@ p {
   border: #5C6973 2px solid;
   border-radius: 2px;
   background: inherit;
+  cursor: pointer;
+  transition: all .2s;
+  &:hover {
+    scale: 0.95;
+    transition: all .2s;
+  }
   img {
     height: 80%;
     width: 80%;
-    cursor: pointer;
   }
   #cross {
     height: 60%;
