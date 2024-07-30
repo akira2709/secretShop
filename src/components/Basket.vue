@@ -1,17 +1,10 @@
 <script setup>
-import { inject } from 'vue'
+  import { inject } from 'vue'
   import BasketCart from '@/components/forBasket/BasketCart.vue'
+  import { getItem } from '@/functions.js'
   const user = inject('user')
   const totalPrice = inject('totalPrice')
   const selectedItems = inject('selectedItems')
-  function countPrice(price, mode) {
-    if (mode === '+') {
-      totalPrice.value = Math.round((totalPrice.value + price) * 100) / 100
-    }
-    if (mode === '-') {
-      totalPrice.value = Math.round((totalPrice.value - price) * 100) / 100
-    }
-  }
   function ending (val) {
     if (val == 1 || String(val).slice(-1) == 1 && Number(val) > 20) {
       return val + ' товар'
@@ -21,6 +14,27 @@ import { inject } from 'vue'
     }
     else {
       return val + ' товаров'
+    }
+  }
+  function addAll() {
+    user.value.basket.map(async (itemId) => {
+      if (!selectedItems.value.includes(itemId)) {
+        selectedItems.value.push(itemId)
+        let item = await getItem(itemId)
+        totalPrice.value = Math.round((totalPrice.value + item.price) * 100) / 100
+      }
+    })
+  }
+  function clearAll() {
+    selectedItems.value = []
+    totalPrice.value = 0
+  }
+  function countPrice(price, mode) {
+    if (mode === '+') {
+      totalPrice.value = Math.round((totalPrice.value + price) * 100) / 100
+    }
+    if (mode === '-') {
+      totalPrice.value = Math.round((totalPrice.value - price) * 100) / 100
     }
   }
 </script>
@@ -44,8 +58,8 @@ import { inject } from 'vue'
         </div>
         <div class="select-btn">
           <button>Купить выбранное</button>
-          <p>Очистить выбранное</p>
-          <p>Выбрать все</p>
+          <p @click="clearAll()">Очистить выбранное</p>
+          <p @click="addAll()">Выбрать все</p>
         </div>
       </div>
       <div class="infoDivider"></div>

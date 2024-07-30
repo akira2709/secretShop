@@ -1,6 +1,6 @@
 <script setup>
 import { inject, onMounted, ref } from 'vue'
-import { getItem } from '@/functions.js'
+import { getItem, removeFromBasket } from '@/functions.js'
 
 const props = defineProps({
   item_id: Number,
@@ -14,6 +14,7 @@ const item = ref({
   author: String,
 });
 const selectedItems = inject('selectedItems')
+const user = inject('user')
 onMounted(async () => {
   item.value = await getItem(props.item_id)
 })
@@ -22,6 +23,13 @@ function select() {
     selectedItems.value.push(item.value.id)
     props.countPrice(item.value.price, '+')
   } else {
+    selectedItems.value.splice(selectedItems.value.indexOf(item.value.id), 1)
+    props.countPrice(item.value.price, '-')
+  }
+}
+async function remove() {
+  user.value = await removeFromBasket(props.item_id, user.value.user_id)
+  if (selectedItems.value.includes(props.item_id)) {
     selectedItems.value.splice(selectedItems.value.indexOf(item.value.id), 1)
     props.countPrice(item.value.price, '-')
   }
@@ -47,7 +55,7 @@ function select() {
         <div class="inp" @click="select()">
           <img src="/arrow.svg" alt="arrow" v-show="selectedItems.includes(item.id)">
         </div>
-        <div class="inp">
+        <div class="inp" @click="remove()">
           <img src="/cross.svg" alt="cross" id="cross">
         </div>
       </div>

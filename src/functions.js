@@ -1,3 +1,4 @@
+import Cookie from 'js-cookie'
 const url = 'http://127.0.0.1:3000'
 
 export default function slash(value) {
@@ -23,7 +24,7 @@ export async function checkIsAuth() {
       user = await response.json();
       document.cookie = `jwt_token=${user.jwt_token}`;
     }
-    document.cookie = 'token=; max-age=-1';
+    Cookie.remove('token')
   }
   return user;
 }
@@ -53,10 +54,10 @@ export async function checkJWT() {
     })
     if (response.ok) {
       user = await response.json();
-      document.cookie = `jwt_token=${user.jwt_token}; SameSite=None; secure`;
+      document.cookie = `jwt_token=${user.jwt_token}`;
     }
     else {
-      document.cookie = 'jwt_token=; max-age=-1';
+      Cookie.remove('jwt_token')
     }
   }
   return user;
@@ -73,4 +74,17 @@ export async function getItem(itemId) {
     item = await response.json()
   }
   return item;
+}
+
+
+export async function removeFromBasket(itemId, userId) {
+  let user;
+  let response = await fetch(url + `/remove_from_basket/${itemId}/${userId}`, {
+    method: 'GET',
+    mode: 'cors',
+  })
+  if (response.ok) {
+    user = await response.json()
+  }
+  return user;
 }
