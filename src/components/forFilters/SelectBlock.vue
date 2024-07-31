@@ -39,6 +39,7 @@ import { inject } from 'vue'
     border: #5C6973 2px solid;
     border-radius: 2px;
     background: inherit;
+    cursor: pointer;
     img {
       height: 80%;
       width: 80%;
