@@ -12,6 +12,8 @@ const item = ref({
   price: Number,
   date: Date,
   author: String,
+  type: String,
+  subject: String,
 });
 const selectedItems = inject('selectedItems')
 const user = inject('user')
@@ -39,7 +41,7 @@ async function remove() {
 <template>
   <article>
     <div>
-      <h1>Контрольная, ОБЖ, {{ item.id }}</h1>
+      <h1>{{ item.type }}, {{ item.subject }}, {{ item.id }}</h1>
     </div>
     <div class="info">
       <div>

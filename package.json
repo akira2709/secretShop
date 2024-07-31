@@ -11,7 +11,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "js-cookie": "^3.0.5",
     "node-modules": "^1.0.1",
     "vue": "^3.4.15",
     "vue-router": "^4.3.3"

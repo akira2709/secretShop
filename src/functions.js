@@ -1,6 +1,4 @@
-import Cookie from 'js-cookie'
 const url = 'http://127.0.0.1:3000'
-
 export default function slash(value) {
   if (value > 99999){
     value = value.toExponential(1).replace('+', '')
@@ -11,10 +9,8 @@ export default function slash(value) {
 
 export async function checkIsAuth() {
   let user;
-  let cookie = document.cookie;
   let token = null;
-  try { cookie = cookie.split('; ') } catch { /* empty */ }
-  try { token = cookie.filter((el) => el.split('=')[0] === 'token')[0].split('=')[1] } catch { /* empty */ }
+  try { token = localStorage.getItem('token') } catch { /* empty */ }
   if (token) {
     let response = await fetch(url + `/check_token/${token}`, {
       method: 'GET',
@@ -22,9 +18,9 @@ export async function checkIsAuth() {
     })
     if (response.ok) {
       user = await response.json();
-      document.cookie = `jwt_token=${user.jwt_token}`;
+      localStorage.setItem('jwt_token', user.jwt_token)
     }
-    Cookie.remove('token')
+    localStorage.removeItem('token')
   }
   return user;
 }
@@ -36,17 +32,15 @@ export async function Auth() {
       token: String,
     }
     data = await response.json()
-    document.cookie = `token=${data.token}`
+    localStorage.setItem('token', data.token)
     window.location.href = `https://t.me/meTWOme_bot?start=${data.token}`
   }
 }
 
 export async function checkJWT() {
   let user;
-  let cookie = document.cookie;
   let jwtToken = null;
-  try { cookie = cookie.split('; ') } catch { /* empty */ }
-  try { jwtToken = cookie.filter((el) => el.split('=')[0] === 'jwt_token')[0].split('=')[1] } catch { /* empty */ }
+  try { jwtToken = localStorage.getItem('jwt_token') } catch { /* empty */ }
   if (jwtToken) {
     let response = await fetch(url + `/check_jwt_token/${jwtToken}`, {
       method: 'GET',
@@ -54,10 +48,10 @@ export async function checkJWT() {
     })
     if (response.ok) {
       user = await response.json();
-      document.cookie = `jwt_token=${user.jwt_token}`;
+      localStorage.setItem('jwt_token', user.jwt_token)
     }
     else {
-      Cookie.remove('jwt_token')
+      localStorage.removeItem('jwt_token')
     }
   }
   return user;
