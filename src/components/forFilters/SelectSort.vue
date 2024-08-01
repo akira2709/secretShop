@@ -30,7 +30,6 @@ function select(val) {
       filters.value[i] = val
     }
   }
-  console.log(filters.value)
 }
 </script>
 
