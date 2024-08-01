@@ -70,7 +70,7 @@
         <h1>Мои сделки</h1>
         <div class="myOffers">
           <div v-if="!user.my_offers.length" class="noOffers">
-            <img src="/empty-busket.svg" alt="empty basket">
+            <img src="/empty-basket.svg" alt="empty basket">
             <h1>Сделок нет</h1>
           </div>
           <div v-if="!isOpen">
@@ -116,7 +116,7 @@
         <h1>История сделок</h1>
         <div class="myOffers">
           <div v-if="!user.offers_history.length" class="noOffers">
-            <img src="/empty-busket.svg" alt="empty basket">
+            <img src="/empty-basket.svg" alt="empty basket">
             <h1>Сделок нет</h1>
           </div>
           <div v-if="!isOpen">

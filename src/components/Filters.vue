@@ -1,12 +1,12 @@
 <script setup>
-import { inject } from 'vue'
 import FilterBlock from '@/components/forFilters/FilterBlock.vue'
-const user = inject('user')
+import SelectSort from '@/components/forFilters/SelectSort.vue'
 const params = {
   subject: ['Математика', 'Русский язык', 'ОБЖ', 'Информатика'],
   classNumber: ['6 класс', '7 класс', '8 класс', '9 класс', '10 класс', '11 класс'],
   workType: ['Самостоятельная работа', 'Контрольная работа', 'Домашняя работа'],
 }
+const sortSelect = ['По дате', 'Дороже', 'Дешевле', 'По рейтингу']
 </script>
 
 <template>
@@ -17,7 +17,7 @@ const params = {
       <img src="/public/arrow-left.svg" alt="arrow">
       <button>Назад</button>
     </div>
-    <span class="username">{{ user.username }}</span>
+    <SelectSort class="username" :value="sortSelect"></SelectSort>
     <div class="divider"></div>
     <div class="info">
       <FilterBlock title="Предмет" :values="params.subject"></FilterBlock>
@@ -89,7 +89,7 @@ const params = {
   }
 }
 .username {
-  top: 2.5vw;
+  top: 2vw;
   right: 2vw;
   position: absolute;
   color: #BBBBBB;
