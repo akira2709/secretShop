@@ -1,5 +1,4 @@
 <script setup>
-
 </script>
 
 <template>
@@ -17,6 +16,7 @@
 
 <style scoped>
 .toast {
+  will-change: transform;
   z-index: 11;
   position: fixed;
   top: 2vw;
@@ -25,7 +25,7 @@
   background: #ffffff;
   box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transform: translateX(calc(100% + 3vw));
+  transform: translate(100vw);
   transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
   width: 20vw;
   height: 7vw;
@@ -64,7 +64,7 @@
     padding: 1vw 1vw;
     display: grid;
     .success {
-      font-size: 30px;
+      font-size: 2vw;
       color: #000;
     }
     .info {
@@ -72,5 +72,18 @@
     }
   }
 }
-
+.active {
+  transform: translate(0);
+}
+.move {
+  animation: 5s progress forwards linear;
+}
+@keyframes progress {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
 </style>

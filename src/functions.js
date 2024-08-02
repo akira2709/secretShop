@@ -84,31 +84,49 @@ export async function removeFromBasket(itemId, userId) {
 }
 
 
-export function showNotice() {
+var isClicked = false
+var liveCycle = null
+var progressBarRestore = null
+export function showNotice(mode) {
   const toast = document.getElementById('toast')
   const progress = document.getElementById('progress')
   const cross = document.getElementById('cross')
-  toast.style.transform = 'translateX(0)'
-  const tm1 = setTimeout(() => {
-    toast.style.transform = 'translateX(calc(100% + 3vw))'
-  }, 5000)
-  let width = 20
-  const ti1 = setInterval(() => {
-    if (width > 0) {
-      progress.style.width = width + 'vw'
-      width -= 0.04
+  if (isClicked === false || mode === 'extra') {
+    if (mode !== 'extra') {
+      isClicked = null
+      setTimeout(() => isClicked = true, 800)
     } else {
-      return;
+      setTimeout(() => isClicked = true, 800)
     }
-  }, 10)
-  const tm3 = setTimeout(() => progress.style.width = '20vw', 5500)
-  cross.onclick = () => {
-    clearInterval(ti1)
-    clearTimeout(tm1)
-    clearTimeout(tm3)
-    toast.style.transform = 'translateX(calc(100% + 3vw))'
+    toast.classList.toggle('active')
+    progress.classList.toggle('move')
+    liveCycle = setTimeout(() => {
+      toast.classList.toggle('active')
+    }, 5000)
+    progressBarRestore = setTimeout(() => {
+      isClicked = false
+      progress.classList.toggle('move')
+    }, 5500)
+    cross.onclick = () => {
+      clearTimeout(liveCycle)
+      clearTimeout(progressBarRestore)
+      toast.classList.toggle('active')
+      setTimeout(() => {
+        progress.classList.toggle('move')
+        isClicked = false
+      }, 500)
+    }
+  }
+  else if (isClicked === true){
+    isClicked = null
+    clearTimeout(liveCycle)
+    clearTimeout(progressBarRestore)
+    liveCycle = null
+    progressBarRestore = null
+    toast.classList.toggle('active')
+    setTimeout(() => progress.classList.toggle('move'), 400)
     setTimeout(() => {
-      progress.style.width = '20vw'
+      showNotice('extra')
     }, 500)
   }
 }

@@ -1,7 +1,7 @@
 <script setup>
   import { inject } from 'vue'
   import BasketCart from '@/components/forBasket/BasketCart.vue'
-  import { getItem } from '@/functions.js'
+  import { getItem, showNotice } from '@/functions.js'
   const user = inject('user')
   const totalPrice = inject('totalPrice')
   const selectedItems = inject('selectedItems')
@@ -57,7 +57,7 @@
           <p>на сумму {{ totalPrice }} shr</p>
         </div>
         <div class="select-btn">
-          <button>Купить выбранное</button>
+          <button @click="showNotice()">Купить выбранное</button>
           <p @click="clearAll()">Очистить выбранное</p>
           <p @click="addAll()">Выбрать все</p>
         </div>
