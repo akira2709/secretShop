@@ -22,7 +22,7 @@
 <template>
 	<main class="main">
 		<div class="searchBox">
-			<img src="/public/search.svg" alt="loupe">
+			<img src="/public/search.svg" alt="лупа">
 			<input type="text" placeholder="Поиск..." class="search">
 		</div>
 		<div class="cardBox">
@@ -49,7 +49,6 @@
         </div>
       </div>
 		</div>
-
 	</main>
 </template>
 

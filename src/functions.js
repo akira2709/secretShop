@@ -82,3 +82,33 @@ export async function removeFromBasket(itemId, userId) {
   }
   return user;
 }
+
+
+export function showNotice() {
+  const toast = document.getElementById('toast')
+  const progress = document.getElementById('progress')
+  const cross = document.getElementById('cross')
+  toast.style.transform = 'translateX(0)'
+  const tm1 = setTimeout(() => {
+    toast.style.transform = 'translateX(calc(100% + 3vw))'
+  }, 5000)
+  let width = 20
+  const ti1 = setInterval(() => {
+    if (width > 0) {
+      progress.style.width = width + 'vw'
+      width -= 0.04
+    } else {
+      return;
+    }
+  }, 10)
+  const tm3 = setTimeout(() => progress.style.width = '20vw', 5500)
+  cross.onclick = () => {
+    clearInterval(ti1)
+    clearTimeout(tm1)
+    clearTimeout(tm3)
+    toast.style.transform = 'translateX(calc(100% + 3vw))'
+    setTimeout(() => {
+      progress.style.width = '20vw'
+    }, 500)
+  }
+}

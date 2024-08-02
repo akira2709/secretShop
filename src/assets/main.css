@@ -4,6 +4,7 @@ body {
 	background: black linear-gradient(#121217, #050505);
 	color: white;
 	font-family: Helvetica, serif;
+	overflow-x: hidden;
 	a {
 		text-decoration: none;
 	}
