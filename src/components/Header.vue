@@ -44,19 +44,6 @@
       width: 22.5%;
       cursor: pointer;
    }
-   .avatar { 
-      float: right;
-      margin-left: 1vw;
-      border-radius: 100%;
-      border: 3px #5C6973 solid; 
-      width: 4.375vw;
-      height: 4.375vw;
-   }
-   .avatar img{
-      height: 100%;
-      width: 100%;
-      border-radius: 100%;
-   }
    .info {
       margin-left: auto;
    }
@@ -75,8 +62,9 @@
       margin: 0.1vw 0 0 0;
    }
    .name {
-      color: #BBBBBB;
-      margin: 1vw 0 0 0;
-      font-size: 2vw;
+     color: #BBBBBB;
+     font-size: 2vw;
+     width: fit-content;
+     margin: 1vw 0 0 auto;
    }
 </style>

@@ -1,9 +1,12 @@
 <script setup>
   import { onMounted, watch, ref, reactive, provide } from 'vue';
   import { checkIsAuth, Auth, checkJWT } from './functions.js'
+  import Notice from '@/components/Notice.vue'
 
   const user = ref(null)
   const filters = ref([])
+  const selectedItems = ref([])
+  const totalPrice = ref(0)
   onMounted(async () => {
     user.value = await checkJWT()
     if (!user.value) {
@@ -12,9 +15,12 @@
   })
   provide('user', user)
   provide('filters', filters)
+  provide('selectedItems', selectedItems)
+  provide('totalPrice', totalPrice)
 </script>
 
-<template class="tem">
+<template>
+  <Notice></Notice>
   <div v-if="!user">
     <div class="bg">
       <div class="auth">
@@ -33,7 +39,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
   <RouterView v-else></RouterView>

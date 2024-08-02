@@ -1,30 +1,63 @@
 <script setup>
+import { inject, onMounted, ref } from 'vue'
+import { getItem, removeFromBasket } from '@/functions.js'
+
 const props = defineProps({
-  author: String,
-  price: Number,
+  item_id: Number,
+  countPrice: Function,
 })
+const item = ref({
+  id: Number,
+  name: String,
+  price: Number,
+  date: Date,
+  author: String,
+  type: String,
+  subject: String,
+});
+const selectedItems = inject('selectedItems')
+const user = inject('user')
+onMounted(async () => {
+  item.value = await getItem(props.item_id)
+})
+function select() {
+  if (!selectedItems.value.includes(item.value.id)) {
+    selectedItems.value.push(item.value.id)
+    props.countPrice(item.value.price, '+')
+  } else {
+    selectedItems.value.splice(selectedItems.value.indexOf(item.value.id), 1)
+    props.countPrice(item.value.price, '-')
+  }
+}
+async function remove() {
+  user.value = await removeFromBasket(props.item_id, user.value.user_id)
+  if (selectedItems.value.includes(props.item_id)) {
+    selectedItems.value.splice(selectedItems.value.indexOf(item.value.id), 1)
+    props.countPrice(item.value.price, '-')
+  }
+}
 </script>
 
 <template>
   <article>
     <div>
-      <h1>Контрольная, ОБЖ, 312453</h1>
+      <h1>{{ item.type }}, {{ item.subject }}, {{ item.id }}</h1>
     </div>
     <div class="info">
       <div>
         <p>
-          {{ author }}
+          {{ item.name }}
         </p>
         <p>
-          {{ price }} Shr
+          {{ item.price }} Shr
         </p>
       </div>
       <div class="buttons">
         <button>Купить</button>
-        <div class="inp">
-          <img src="/arrow.svg" alt="arrow">
+        <div class="inp" @click="select()">
+          <img src="/arrow.svg" alt="arrow" v-show="selectedItems.includes(item.id)">
         </div>
-        <div class="inp">
+        <div class="inp" @click="remove()">
           <img src="/cross.svg" alt="cross" id="cross">
         </div>
       </div>
@@ -75,10 +108,15 @@ p {
   border: #5C6973 2px solid;
   border-radius: 2px;
   background: inherit;
+  cursor: pointer;
+  transition: all .2s;
+  &:hover {
+    scale: 0.95;
+    transition: all .2s;
+  }
   img {
     height: 80%;
     width: 80%;
-    cursor: pointer;
   }
   #cross {
     height: 60%;

@@ -1,12 +1,41 @@
 <script setup>
   import { inject } from 'vue'
   import BasketCart from '@/components/forBasket/BasketCart.vue'
-
+  import { getItem, showNotice } from '@/functions.js'
   const user = inject('user')
-  function countPrice(basket) {
-    let totalPrice = 0;
-    basket.map((el) => totalPrice += el.price);
-    return totalPrice;
+  const totalPrice = inject('totalPrice')
+  const selectedItems = inject('selectedItems')
+  function ending (val) {
+    if (val == 1 || String(val).slice(-1) == 1 && Number(val) > 20) {
+      return val + ' товар'
+    }
+    if (val >= 2 && val <= 4 || Number(String(val).slice(-1)) >= 2 && Number(String(val).slice(-1)) <= 4 && Number(val) > 20) {
+      return val + ' товара'
+    }
+    else {
+      return val + ' товаров'
+    }
+  }
+  function addAll() {
+    user.value.basket.map(async (itemId) => {
+      if (!selectedItems.value.includes(itemId)) {
+        selectedItems.value.push(itemId)
+        let item = await getItem(itemId)
+        totalPrice.value = Math.round((totalPrice.value + item.price) * 100) / 100
+      }
+    })
+  }
+  function clearAll() {
+    selectedItems.value = []
+    totalPrice.value = 0
+  }
+  function countPrice(price, mode) {
+    if (mode === '+') {
+      totalPrice.value = Math.round((totalPrice.value + price) * 100) / 100
+    }
+    if (mode === '-') {
+      totalPrice.value = Math.round((totalPrice.value - price) * 100) / 100
+    }
   }
 </script>
 
@@ -24,17 +53,17 @@
       <div class="info">
         <div>
           <h1>Корзина</h1>
-          <p>{{ user.basket.length }} товаров</p>
-          <p>на сумму {{ countPrice(user.basket) }} shr</p>
+          <p>{{ ending(selectedItems.length) }}</p>
+          <p>на сумму {{ totalPrice }} shr</p>
         </div>
         <div class="select-btn">
-          <button>Купить выбранное</button>
-          <p>Очистить выбранное</p>
-          <p>Выбрать все</p>
+          <button @click="showNotice()">Купить выбранное</button>
+          <p @click="clearAll()">Очистить выбранное</p>
+          <p @click="addAll()">Выбрать все</p>
         </div>
       </div>
       <div class="infoDivider"></div>
-      <BasketCart :author="'ivan'" :price="1234"></BasketCart>
+      <BasketCart v-for="item_id in user.basket" :item_id="item_id" :countPrice="countPrice"></BasketCart>
     </div>
   </div>
 </template>

@@ -1,5 +1,4 @@
 const url = 'http://127.0.0.1:3000'
-
 export default function slash(value) {
   if (value > 99999){
     value = value.toExponential(1).replace('+', '')
@@ -10,10 +9,8 @@ export default function slash(value) {
 
 export async function checkIsAuth() {
   let user;
-  let cookie = document.cookie;
   let token = null;
-  try { cookie = cookie.split('; ') } catch { /* empty */ }
-  try { token = cookie.filter((el) => el.split('=')[0] === 'token')[0].split('=')[1] } catch { /* empty */ }
+  try { token = localStorage.getItem('token') } catch { /* empty */ }
   if (token) {
     let response = await fetch(url + `/check_token/${token}`, {
       method: 'GET',
@@ -21,9 +18,9 @@ export async function checkIsAuth() {
     })
     if (response.ok) {
       user = await response.json();
-      document.cookie = `jwt_token=${user.jwt_token}`;
+      localStorage.setItem('jwt_token', user.jwt_token)
     }
-    document.cookie = 'token=; max-age=-1';
+    localStorage.removeItem('token')
   }
   return user;
 }
@@ -35,17 +32,15 @@ export async function Auth() {
       token: String,
     }
     data = await response.json()
-    document.cookie = `token=${data.token}`
+    localStorage.setItem('token', data.token)
     window.location.href = `https://t.me/meTWOme_bot?start=${data.token}`
   }
 }
 
 export async function checkJWT() {
   let user;
-  let cookie = document.cookie;
   let jwtToken = null;
-  try { cookie = cookie.split('; ') } catch { /* empty */ }
-  try { jwtToken = cookie.filter((el) => el.split('=')[0] === 'jwt_token')[0].split('=')[1] } catch { /* empty */ }
+  try { jwtToken = localStorage.getItem('jwt_token') } catch { /* empty */ }
   if (jwtToken) {
     let response = await fetch(url + `/check_jwt_token/${jwtToken}`, {
       method: 'GET',
@@ -53,11 +48,85 @@ export async function checkJWT() {
     })
     if (response.ok) {
       user = await response.json();
-      document.cookie = `jwt_token=${user.jwt_token}; SameSite=None; secure`;
+      localStorage.setItem('jwt_token', user.jwt_token)
     }
     else {
-      document.cookie = 'jwt_token=; max-age=-1';
+      localStorage.removeItem('jwt_token')
     }
   }
   return user;
+}
+
+
+export async function getItem(itemId) {
+  let item;
+  let response = await fetch(url + `/get_item/${itemId}`, {
+    method: 'GET',
+    mode: 'cors',
+  })
+  if (response.ok) {
+    item = await response.json()
+  }
+  return item;
+}
+
+
+export async function removeFromBasket(itemId, userId) {
+  let user;
+  let response = await fetch(url + `/remove_from_basket/${itemId}/${userId}`, {
+    method: 'GET',
+    mode: 'cors',
+  })
+  if (response.ok) {
+    user = await response.json()
+  }
+  return user;
+}
+
+
+var isClicked = false
+var liveCycle = null
+var progressBarRestore = null
+export function showNotice(mode) {
+  const toast = document.getElementById('toast')
+  const progress = document.getElementById('progress')
+  const cross = document.getElementById('cross')
+  if (isClicked === false || mode === 'extra') {
+    if (mode !== 'extra') {
+      isClicked = null
+      setTimeout(() => isClicked = true, 800)
+    } else {
+      setTimeout(() => isClicked = true, 800)
+    }
+    toast.classList.toggle('active')
+    progress.classList.toggle('move')
+    liveCycle = setTimeout(() => {
+      toast.classList.toggle('active')
+    }, 5000)
+    progressBarRestore = setTimeout(() => {
+      isClicked = false
+      progress.classList.toggle('move')
+    }, 5500)
+    cross.onclick = () => {
+      clearTimeout(liveCycle)
+      clearTimeout(progressBarRestore)
+      toast.classList.toggle('active')
+      setTimeout(() => {
+        progress.classList.toggle('move')
+        isClicked = false
+      }, 500)
+    }
+  }
+  else if (isClicked === true){
+    isClicked = null
+    clearTimeout(liveCycle)
+    clearTimeout(progressBarRestore)
+    liveCycle = null
+    progressBarRestore = null
+    toast.classList.toggle('active')
+    setTimeout(() => progress.classList.toggle('move'), 400)
+    setTimeout(() => {
+      showNotice('extra')
+    }, 500)
+  }
 }
