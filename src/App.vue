@@ -1,6 +1,6 @@
 <script setup>
   import { onMounted, watch, ref, reactive, provide } from 'vue';
-  import { checkIsAuth, Auth, checkJWT } from './functions.js'
+  import { checkIsAuth, Auth, checkJWT, getItems } from './functions.js'
   import Notice from '@/components/Notice.vue'
 
   const user = ref(null)
@@ -12,11 +12,15 @@
     if (!user.value) {
       user.value = await checkIsAuth()
     }
+    await getItems(filters)
   })
   provide('user', user)
   provide('filters', filters)
   provide('selectedItems', selectedItems)
   provide('totalPrice', totalPrice)
+  watch(filters, async () => {
+    await getItems(filters)
+  })
 </script>
 
 <template>

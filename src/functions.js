@@ -130,3 +130,16 @@ export function showNotice(mode) {
     }, 500)
   }
 }
+
+
+export async function getItems(filters) {
+  let items= []
+  let response = await fetch(url + '/get_items_id', {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({penis: 'big'})
+  })
+}
