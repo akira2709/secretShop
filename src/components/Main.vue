@@ -1,22 +1,11 @@
 <script setup>
-  const subjects = [
-    {
-      name: 'math',
-      description: 'Math is a science...'
-    },
-    {
-      name: 'russian',
-      description: 'Math is a science...'
-    },
-    {
-      name: 'IT',
-      description: 'Math is a science...'
-    },
-    {
-      name: 'Biology',
-      description: 'Math is a science...'
-    },
-  ]
+import { onMounted, ref } from 'vue'
+import { getSubjects } from '@/functions.js'
+
+  const subjects = ref([])
+  onMounted(async () => {
+    subjects.value = await getSubjects()
+  })
 </script>
 
 <template>

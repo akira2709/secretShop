@@ -143,3 +143,16 @@ export async function getItems(filters) {
     body: JSON.stringify({penis: 'big'})
   })
 }
+
+export async function getSubjects() {
+  let subjects;
+  let response = await fetch(url + '/get_subjects', {
+    method: 'GET',
+    mode: 'cors',
+  })
+  if (response.ok) {
+    let data = await response.json()
+    subjects = data.subjects
+  }
+  return subjects
+}
