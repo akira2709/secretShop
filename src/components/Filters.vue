@@ -1,12 +1,21 @@
 <script setup>
+import { onMounted, ref } from 'vue'
 import FilterBlock from '@/components/forFilters/FilterBlock.vue'
 import SelectSort from '@/components/forFilters/SelectSort.vue'
+import { getSubjects, ucFirst } from '../functions.js'
 const params = {
-  subject: ['Математика', 'Русский язык', 'ОБЖ', 'Информатика'],
+  subjects: ref([]),
   classNumber: ['6 класс', '7 класс', '8 класс', '9 класс', '10 класс', '11 класс'],
   workType: ['Самостоятельная работа', 'Контрольная работа', 'Домашняя работа'],
 }
 const sortSelect = ['По дате', 'Дороже', 'Дешевле', 'По рейтингу']
+onMounted(async () => {
+  let data = await getSubjects()
+  for (let i = 0; i < data.length; i++){
+    data[i] = ucFirst(data[i].name)
+  }
+  params.subjects.value = data
+})
 </script>
 
 <template>
@@ -20,7 +29,7 @@ const sortSelect = ['По дате', 'Дороже', 'Дешевле', 'По р�
     <SelectSort class="username" :value="sortSelect"></SelectSort>
     <div class="divider"></div>
     <div class="info">
-      <FilterBlock title="Предмет" :values="params.subject"></FilterBlock>
+      <FilterBlock title="Предмет" :values="params.subjects.value"></FilterBlock>
       <FilterBlock title="Класс" :values="params.classNumber"></FilterBlock>
       <FilterBlock title="Тип" :values="params.workType"></FilterBlock>
     </div>

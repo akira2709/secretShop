@@ -4,9 +4,10 @@ import { inject } from 'vue'
     value: String,
   })
   const filters = inject('filters')
-  function action(val) {
+  function addOrDeleteFromFilters(val) {
     if (check(val, filters.value)) {
-      filters.value = filters.value.filter((el) => el !== val)
+      let index = filters.value.indexOf(val)
+      filters.value.splice(index, 1)
     } else {filters.value.push(val)}
   }
   function check(val, arr) {
@@ -17,7 +18,7 @@ import { inject } from 'vue'
 <template>
   <div class="select">
     <p>{{ value }}</p>
-    <div class="inp" @click="action(value)">
+    <div class="inp" @click="addOrDeleteFromFilters(value)">
       <img src="/arrow.svg" alt="arrow" v-if="check(value, filters)">
     </div>
   </div>

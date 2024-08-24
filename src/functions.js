@@ -1,4 +1,4 @@
-const url = 'http://127.0.0.1:3000'
+const url = 'http://192.168.1.91:3000'
 export default function slash(value) {
   if (value > 99999){
     value = value.toExponential(1).replace('+', '')
@@ -140,8 +140,11 @@ export async function getItems(filters) {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({penis: 'big'})
+    body: JSON.stringify({filters: filters})
   })
+  if (response.ok) {
+    items = await response.json()
+  }
 }
 
 export async function getSubjects() {
@@ -155,4 +158,8 @@ export async function getSubjects() {
     subjects = data.subjects
   }
   return subjects
+}
+
+export function ucFirst(string) {
+  return string[0].toUpperCase() + string.slice(1)
 }

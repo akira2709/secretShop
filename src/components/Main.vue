@@ -17,10 +17,10 @@ import SubjectCard from '@/components/forMain/SubjectCard.vue'
 				<div class="buttonsBox">
 					<button class="send">Отправить</button>
 					<button class="request">Запросить</button>
-					<button class="buy">Купить</button>
+					<button class="buy" @click="$router.push('/main')">Купить</button>
 				</div>
 			</div>
-      <SubjectCard></SubjectCard>
+      		<SubjectCard></SubjectCard>
 		</div>
 	</main>
 </template>
@@ -107,7 +107,7 @@ import SubjectCard from '@/components/forMain/SubjectCard.vue'
 			border: 1.5px solid;
 			border-image: linear-gradient(#F7BC1B, #655828) 1;
 			background: linear-gradient(rgba(100, 76, 11, 0.41), #050505);
-			width: calc(11.45vw - 2px);
+			width: calc(12.2vw - 2px);
 			height: calc(2.7vw - 2px);
 			box-shadow: 1px 1px 1px black;
 			transition: all 100ms;

@@ -4,7 +4,7 @@
   import Notice from '@/components/Notice.vue'
 
   const user = ref(null)
-  const filters = ref([])
+  const filters = ref(['По дате'])
   const selectedItems = ref([])
   const totalPrice = ref(0)
   onMounted(async () => {
@@ -12,14 +12,14 @@
     if (!user.value) {
       user.value = await checkIsAuth()
     }
-    await getItems(filters)
+    await getItems(filters.value)
   })
   provide('user', user)
   provide('filters', filters)
   provide('selectedItems', selectedItems)
   provide('totalPrice', totalPrice)
-  watch(filters, async () => {
-    await getItems(filters)
+  watch(filters.value, async () => {
+    await getItems(filters.value)
   })
 </script>
 

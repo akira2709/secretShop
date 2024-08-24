@@ -6,8 +6,8 @@
     <img src="/cross.svg" alt="cross" class="cross" id="cross">
     <div class="toast-content">
       <div class="message">
-        <span class="success">Успех!</span>
-        <span class="info">Оплата прошла успешно</span>
+        <span class="success">Чурка!</span>
+        <span class="info">Сделай уведомления</span>
       </div>
       <div class="progress" id="progress"></div>
     </div>

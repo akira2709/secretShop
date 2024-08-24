@@ -1,14 +1,11 @@
 <script setup>
   import { onMounted, ref } from 'vue'
-  import { getSubjects } from '@/functions.js'
+  import { getSubjects, ucFirst } from '@/functions.js'
 
   const subjects = ref([])
   onMounted(async () => {
     subjects.value = await getSubjects()
   })
-  function ucFirst(string) {
-    return string[0].toUpperCase() + string.slice(1)
-  }
 </script>
 
 <template>
@@ -20,11 +17,16 @@
     <div class="description">
       <p>{{ subject.description }}</p>
     </div>
+    <div class="btnBox">
+      <button @click="$router.push(`/${subject.name}`)" class="workButton">Работы</button>  
+    </div>
   </div>
+  
 </template>
 
 <style scoped>
 .orderCard {
+  position: relative;
   height: 15.81vw;
   width: 14.14vw;
   border: 2px solid #5C6973;
@@ -32,6 +34,19 @@
   border-image: linear-gradient(#5C6973, #1F232A);
   border-image-slice: 1;
   padding: 1vw;
+  .btnBox {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    height: 17.81vw;
+    width: 16.14vw;
+  }
+  .workButton {
+    position: absolute;
+    bottom: 1.5vw;
+  }
   .description {
     height: 8vw;
     overflow-y: hidden;
@@ -51,8 +66,9 @@
   }
   h1 {
     color: #BBBBBB;
-    margin: 0;
-    font-size: 2vw;
+    margin: 1vw 0;
+    margin-right: 1vw;
+    font-size: 1.5vw;
   }
   button {
     cursor: pointer;
