@@ -1,11 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import { getSubjects } from '@/functions.js'
-
-  const subjects = ref([])
-  onMounted(async () => {
-    subjects.value = await getSubjects()
-  })
+import SubjectCard from '@/components/forMain/SubjectCard.vue'
 </script>
 
 <template>
@@ -26,17 +20,7 @@ import { getSubjects } from '@/functions.js'
 					<button class="buy">Купить</button>
 				</div>
 			</div>
-      <div class="orderCard" v-for="subject in subjects">
-        <div class="logo">
-          <img src="/public/secretShop.png" alt="secretShop"> <!-- нужно svg лого  -->
-        </div>
-        <p>{{ subject.name }}</p>
-        <div class="buttonsBox">
-          <button class="send">Отправить</button>
-          <button class="request">Запросить</button>
-          <button class="buy" @click="$router.push(`/${subject.name}`)">Купить</button>
-        </div>
-      </div>
+      <SubjectCard></SubjectCard>
 		</div>
 	</main>
 </template>
