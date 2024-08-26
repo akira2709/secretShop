@@ -5,7 +5,7 @@ import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import CardBox from '@/components/forMain/CardBox.vue'
 import Error from './components/Error.vue'
-import ItemsList from './components/ItemsList.vue'
+import ItemsList from './components/forMain/ItemsList.vue'
 import Profile from './components/Profile.vue'
 import Filters from './components/Filters.vue'
 import Basket from './components/Basket.vue'
@@ -14,7 +14,8 @@ import Basket from './components/Basket.vue'
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
-		{ path: '/:catchAll(.*)', component: Error },
+		{ path: '/:catchAll(.*)', redirect: '/error' },
+		{ path: '/error', component: Error, name: 'error' },
 		{ path: '/', redirect: '/main' },
 		{ path: '/main', component: CardBox, children: [
 			{ path: 'profile', component: Profile, strict: true },

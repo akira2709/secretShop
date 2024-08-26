@@ -143,8 +143,10 @@ export async function getItems(filters) {
     body: JSON.stringify({filters: filters})
   })
   if (response.ok) {
-    items = await response.json()
+    let data = await response.json()
+    items = data.items
   }
+  return items
 }
 
 export async function getSubjects() {

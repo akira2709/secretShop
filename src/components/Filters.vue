@@ -7,6 +7,7 @@ const params = {
   subjects: ref([]),
   classNumber: ['6 класс', '7 класс', '8 класс', '9 класс', '10 класс', '11 класс'],
   workType: ['Самостоятельная работа', 'Контрольная работа', 'Домашняя работа'],
+  offersOrOrders: ['Запросы', 'Предложения']
 }
 const sortSelect = ['По дате', 'Дороже', 'Дешевле', 'По рейтингу']
 onMounted(async () => {
@@ -29,6 +30,7 @@ onMounted(async () => {
     <SelectSort class="username" :value="sortSelect"></SelectSort>
     <div class="divider"></div>
     <div class="info">
+      <FilterBlock title="Запросы и Предложения" :values="params.offersOrOrders"></FilterBlock>
       <FilterBlock title="Предмет" :values="params.subjects.value"></FilterBlock>
       <FilterBlock title="Класс" :values="params.classNumber"></FilterBlock>
       <FilterBlock title="Тип" :values="params.workType"></FilterBlock>

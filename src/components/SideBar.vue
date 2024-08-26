@@ -2,17 +2,17 @@
 </script>
 <template>
 	<nav class="sidebar">
-		<div class="bookbox">
+		<div class="bookbox" @click="$router.push({ name: 'main' })">
 			<img src="/public/book.svg" alt="book" class="book">
 		</div>
 		<div class="divider"></div>
-		<div class="filterbox" @click="$router.push($route.path + '/filters')">
+		<div class="filterbox" @click="$router.push({ path: $route.path + '/filters', query: $route.query })">
 			<img src="/public/filter.svg" alt="filter" class="filter">
 		</div>
-		<div class="changebox">
+		<div class="changebox" @click="$router.puth({ path: $route.path + '/change', query: $route.query })">
 			<img src="/public/change.svg" alt="change" class="change">
 		</div>
-		<div class="basketbox" @click="$router.push($route.path + '/basket')">
+		<div class="basketbox" @click="$router.push({ path: $route.path + '/basket', query: $route.query })">
 			<img src="/public/basket.svg" alt="basket" class="basket">
 		</div>
 	</nav>

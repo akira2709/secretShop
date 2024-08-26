@@ -1,24 +1,20 @@
 <script setup>
-  import { onMounted, ref } from 'vue'
-  import { getSubjects, ucFirst } from '@/functions.js'
-
-  const subjects = ref([])
-  onMounted(async () => {
-    subjects.value = await getSubjects()
+  const props = defineProps({
+    item: Object,
   })
 </script>
 
 <template>
-  <div class="orderCard" v-for="subject in subjects" :key="subject.name">
+  <div class="orderCard">
     <div class="subTitle">
-      <h1>{{ ucFirst(subject.name) }}</h1>
+      <h1></h1>
       <img src="" alt="subject logo">
     </div>
     <div class="description">
-      <p>{{ subject.description }}</p>
+      <p></p>
     </div>
     <div class="btnBox">
-      <button @click="$router.push({ name: 'items', query: { subject: subject.name } })" class="workButton">Работы</button>  
+      <button class="workButton">Работы</button>  
     </div>
   </div>
   

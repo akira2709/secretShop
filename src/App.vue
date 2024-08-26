@@ -9,19 +9,21 @@
   const filters = ref(['По дате'])
   const selectedItems = ref([])
   const totalPrice = ref(0)
+  const items = ref([])
   onMounted(async () => {
     user.value = await checkJWT()
     if (!user.value) {
       user.value = await checkIsAuth()
     }
-    await getItems(filters.value)
+    items.value = await getItems(filters.value)
   })
   provide('user', user)
   provide('filters', filters)
   provide('selectedItems', selectedItems)
   provide('totalPrice', totalPrice)
+  provide('items', items)
   watch(filters.value, async () => {
-    await getItems(filters.value)
+    items.value = await getItems(filters.value)
   })
 </script>
 
