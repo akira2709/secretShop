@@ -1,4 +1,4 @@
-const url = 'http://192.168.1.91:3000'
+const url = 'http://192.168.1.94:3000'
 export default function slash(value) {
   if (value > 99999){
     value = value.toExponential(1).replace('+', '')

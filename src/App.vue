@@ -1,7 +1,9 @@
 <script setup>
   import { onMounted, watch, ref, reactive, provide } from 'vue';
-  import { checkIsAuth, Auth, checkJWT, getItems } from './functions.js'
-  import Notice from '@/components/Notice.vue'
+  import { checkIsAuth, checkJWT, getItems } from './functions.js'
+  import Notice from './components/Notice.vue'
+  import Login from './components/Login.vue'
+  import HomePage from './components/HomePage.vue'
 
   const user = ref(null)
   const filters = ref(['По дате'])
@@ -25,61 +27,10 @@
 
 <template>
   <Notice></Notice>
-  <div v-if="!user">
-    <div class="bg">
-      <div class="auth">
-        <div class="container">
-          <div class="cont">
-            <div class="tg">
-              <div class="logo">
-                <img src="/logoMe2Me.svg" alt="logo" class="logoImg"/>
-              </div>
-              <p class="bot">@t.me/meTWOme_bot</p>
-            </div>
-            <div class="btn-box">
-              <button @click="Auth()">Авторизоваться</button>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <RouterView v-else></RouterView>
+  <Login v-if="!user"></Login>
+  <HomePage v-else></HomePage>
 </template>
 
 
 <style scoped>
-.tg {
-  background: #1e1e1e;
-  position: relative;
-  width: 15vw;
-  height: 25vh;
-  border-radius: 16px;
-  .logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 15vw;
-    height: 25vh;
-  }
-  .logoImg {
-    margin-top: -6vh;
-    width: 10vw;
-    height: 25vh;
-  }
-  .bot {
-    cursor: pointer;
-    position: absolute;
-    top: 17vh;
-    left: 2vw;
-    color: #A6AEA3;
-  }
-}
-
-.btn-box {
-  display: flex;
-  justify-content: center;
-  margin-top: 5vh;
-}
 </style>

@@ -6,13 +6,13 @@
 			<img src="/public/book.svg" alt="book" class="book">
 		</div>
 		<div class="divider"></div>
-		<div class="filterbox" @click="$router.push({name: 'filters'})">
+		<div class="filterbox" @click="$router.push($route.path + '/filters')">
 			<img src="/public/filter.svg" alt="filter" class="filter">
 		</div>
 		<div class="changebox">
 			<img src="/public/change.svg" alt="change" class="change">
 		</div>
-		<div class="basketbox" @click="$router.push({name: 'basket'})">
+		<div class="basketbox" @click="$router.push($route.path + '/basket')">
 			<img src="/public/basket.svg" alt="basket" class="basket">
 		</div>
 	</nav>

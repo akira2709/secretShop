@@ -11,7 +11,7 @@
      <img src="/public/logoBlack.png" alt="logo" class="logo">
       <div class="profile">
          <div class="info">
-            <p class="name" @click="$router.push({name: 'profile'})">{{ user.username }}</p>
+            <p class="name" @click="$router.push($route.path + '/profile')">{{ user.username }}</p>
             <div class="balance">
               <p>{{ slash(user.amount) }}</p>
               <p>Shr</p>
