@@ -47,9 +47,6 @@
     height: 8vw;
     overflow-y: hidden;
     text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 6;
-    -webkit-box-orient: vertical;
     p {
       margin: 0;
       color: #5C6973;
