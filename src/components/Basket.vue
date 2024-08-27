@@ -21,7 +21,7 @@
       if (!selectedItems.value.includes(itemId)) {
         selectedItems.value.push(itemId)
         let item = await getItem(itemId)
-        totalPrice.value = Math.round((totalPrice.value + item.price) * 100) / 100
+        totalPrice.value = parseFloat((totalPrice.value + item.price).toFixed(2))
       }
     })
   }
