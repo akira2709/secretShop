@@ -4,12 +4,12 @@
 <template>
 	<main class="main">
 		<div class="searchBox">
-      <img src="/public/search.svg" alt="лупа">
-      <input type="text" placeholder="Поиск..." class="search">
-    </div>
+      		<img src="/public/search.svg" alt="лупа">
+      		<input type="text" placeholder="Поиск..." class="search">
+    	</div>
 		<div class="cardBox">
-      <RouterView></RouterView>
-    </div>
+      		<RouterView></RouterView>
+    	</div>
 	</main>
 </template>
 

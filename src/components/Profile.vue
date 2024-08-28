@@ -159,13 +159,6 @@
       </div>
     </div>
   </div>
-  <div class="profile" v-else>
-    <div class="back" @click="$router.go(-1)">
-      <img src="/public/arrow-left.svg" alt="arrow">
-      <button>Назад</button>
-    </div>
-    <div class="divider"></div>
-  </div>
 </template>
 
 <style scoped>

@@ -9,7 +9,7 @@
 		<div class="filterbox" @click="$router.push({ path: $route.path + '/filters', query: $route.query })">
 			<img src="/public/filter.svg" alt="filter" class="filter">
 		</div>
-		<div class="changebox" @click="$router.puth({ path: $route.path + '/change', query: $route.query })">
+		<div class="changebox" @click="$router.push({ path: $route.path + '/change', query: $route.query })">
 			<img src="/public/change.svg" alt="change" class="change">
 		</div>
 		<div class="basketbox" @click="$router.push({ path: $route.path + '/basket', query: $route.query })">

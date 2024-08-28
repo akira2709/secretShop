@@ -9,6 +9,7 @@ import ItemsList from './components/forMain/ItemsList.vue'
 import Profile from './components/Profile.vue'
 import Filters from './components/Filters.vue'
 import Basket from './components/Basket.vue'
+import Change from './components/Change.vue'
 
 
 const router = createRouter({
@@ -21,11 +22,13 @@ const router = createRouter({
 			{ path: 'profile', component: Profile, strict: true },
 			{ path: 'filters', component: Filters, strict: true },
 			{ path: 'basket', component: Basket, strict: true },
+			{ path: 'change', component: Change, strict: true },
 		], strict: true, name: 'main' },
 		{ path: '/items', component: ItemsList, children: [
 			{ path: 'profile', component: Profile, strict: true },
 			{ path: 'filters', component: Filters, strict: true },
 			{ path: 'basket', component: Basket, strict: true },
+			{ path: 'change', component: Change, strict: true },
 		], strict: true, name: 'items' },
 	],
 })
