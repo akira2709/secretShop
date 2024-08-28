@@ -31,10 +31,10 @@
   }
   function countPrice(price, mode) {
     if (mode === '+') {
-      totalPrice.value = Math.round((totalPrice.value + price) * 100) / 100
+      totalPrice.value = parseFloat((totalPrice.value + price).toFixed(2))
     }
     if (mode === '-') {
-      totalPrice.value = Math.round((totalPrice.value - price) * 100) / 100
+      totalPrice.value = parseFloat((totalPrice.value - price).toFixed(2))
     }
   }
 </script>
