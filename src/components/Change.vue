@@ -1,21 +1,8 @@
 <script setup>
-    import { inject, provide, ref, watch } from 'vue'
-    import InputBlock from './forChange/InputBlock.vue'
-    import InputText from './forChange/InputText.vue'
-    import ChangeBlock from './forChange/ChangeBlock.vue'
-    import FileInput from './forChange/FileInput.vue'
+    import { inject } from 'vue'
+    import Form from './forChange/Form.vue'
 
     const user = inject('user')
-    const data = ref({
-        name: '',
-        price: '',
-        type: 'Самостоятельная', 
-        subject: 'Алгебра',
-        description: '',
-        file: ''
-    })
-    provide('data', data)
-    watch(data.value, () => console.log(data.value))
 </script>
 
 <template>
@@ -33,25 +20,14 @@
             <h1>Сделка</h1>
         </div>
         <div class="infoDivider"></div>
-        <InputBlock value="название" input="название" :isSlot="false"></InputBlock>
-        <InputBlock value="цена" input="цену" :isSlot="true">
-            <p class="shard">Sh</p>
-        </InputBlock>
-        <ChangeBlock name="Тип" mode="type"></ChangeBlock>
-        <ChangeBlock name="Предмет" mode="subject"></ChangeBlock>
-        <InputText value="Описание"></InputText>
-        <FileInput value="Фото"></FileInput>
+        <Form mode="Выложить"></Form>
+        <div class="infoDivider"></div>
+        <Form mode="Запросить"></Form>
     </div>
   </div>
 </template>
 
 <style scoped>
-.shard {
-	position: absolute;
-	right: .5vw;
-	color: #5C6973 !important;
-	font-size: 1vw !important;	
-}
 .profile {
     user-select: none;
     overflow: scroll;

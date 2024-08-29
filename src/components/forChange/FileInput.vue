@@ -1,15 +1,26 @@
 <script setup>
-	import { inject } from 'vue'
+	import { inject, ref } from 'vue'
 	import { ucFirst } from '/src/functions.js'
 
 	const props = defineProps({
 		value: String,
 	})
 	const data = inject('data')
+    const file = ref({})
 
-    function upload() {
+    function handleUpload() {
         const input = document.getElementById('input')
         input.click()
+    }
+
+    function onUpload(event) {
+        file.value = event.target.files[0]
+        data.value.file = file.value
+    }
+
+    function deleteFile() {
+        file.value = {}
+        data.value.file = ''
     }
 </script>
 
@@ -17,8 +28,15 @@
 	<div class="inpBlock">
 	    <p>{{ ucFirst(value) }}</p>
 		<div class="inputBox">
-            <input type="file" id="input">
-            <img src="/public/addBalance.svg" alt="plus" class="input addBtn" @click="upload()">
+            <input type="file" id="input" @change="onUpload($event)">
+            <div class="fileBox">
+                <div v-if="file.name" class="input filename" :title="file.name">
+                    <span>{{ file.name }}</span>
+                    <img src="/public/cross.svg" alt="cross" @click="deleteFile()">
+                </div>
+                <div v-else class="input filename" style="width: 10.6vw;">Файл не выбран...</div>
+                <img src="/public/addBalance.svg" alt="plus" class="input addBtn" @click="handleUpload()">
+            </div>
         </div>
 	</div>
 </template>
@@ -35,6 +53,32 @@
 		font-size: 1.5vw;
 		margin: 0;
 	}
+    .fileBox {
+        display: flex;
+        .filename {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-right: .3vw;
+            max-width: 9.2vw;
+            max-height: 1.2vw;
+            /* white-space: nowrap;
+            overflow: hidden; */
+            padding-right: 2vw;
+            img {
+                cursor: pointer;
+                position: absolute;
+                right: .5vw;
+                width: 1vw;
+            }
+            span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                box-sizing: border-box;
+            }
+        }
+    }
     .addBtn {
         border: none !important;
         width: 2vw !important;
@@ -67,8 +111,7 @@
         background: inherit;
 		border-image: linear-gradient(#5C6973, #1F232A);
 		border-image-slice: 1;
-		width: 13vw;
-        height: 7vw;
+		width: fit-content;
 		font-size: 1vw;
         resize: none;
     }

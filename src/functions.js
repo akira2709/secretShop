@@ -1,4 +1,4 @@
-const url = 'http://192.168.1.94:3000'
+const url = 'http://192.168.1.84:3000'
 export default function slash(value) {
   if (value > 99999){
     value = value.toExponential(1).replace('+', '')
@@ -164,4 +164,9 @@ export async function getSubjects() {
 
 export function ucFirst(string) {
   return string[0].toUpperCase() + string.slice(1)
+}
+
+export function checkForm(data) {
+  console.log(data)
+  return false
 }
