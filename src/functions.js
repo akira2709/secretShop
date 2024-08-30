@@ -142,18 +142,12 @@ export async function sendForm(data) {
     title: '',
     content: ''
   }
-  const formData = new FormData();
-  for (const key in data) {
-    if (data[key] instanceof File) {
-      formData.append(key, data[key]);
-    } else {
-      formData.append(key, JSON.stringify(data[key]));
-    }
-  }
+  const blob = new Blob([data.file], { type: data.file.type });
+  data.file = data.file.name;
   let response = await fetch(url + `/save_item`, {
     method: 'POST', 
     mode: 'cors',
-    body: formData,
+    body: JSON.stringify({data: data, file: blob}),
   })
   if (response.ok) {
     let content = await response.json()
