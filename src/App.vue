@@ -10,6 +10,7 @@
   const selectedItems = ref([])
   const totalPrice = ref(0)
   const items = ref([])
+  const notices = ref([])
   onMounted(async () => {
     user.value = await checkJWT()
     if (!user.value) {
@@ -22,13 +23,14 @@
   provide('selectedItems', selectedItems)
   provide('totalPrice', totalPrice)
   provide('items', items)
+  provide('notices', notices)
   watch(filters.value, async () => {
     items.value = await getItems(filters.value)
   })
 </script>
 
 <template>
-  <Notice></Notice>
+  <Notice v-for="notice in notices" :notice="notice"></Notice>
   <Login v-if="!user"></Login>
   <HomePage v-else></HomePage>
 </template>

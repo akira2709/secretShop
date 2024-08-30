@@ -1,15 +1,20 @@
 <script setup>
+  import { inject } from 'vue'
+  const props = defineProps({
+    notice: Object,
+  })
+
+  const notices = inject('notices')
 </script>
 
 <template>
   <div class="toast" id="toast">
-    <img src="/cross.svg" alt="cross" class="cross" id="cross">
+    <img src="/cross.svg" alt="cross" class="cross" id="cross" @click="notices.pop()">
     <div class="toast-content">
       <div class="message">
-        <span class="success">Чурка!</span>
-        <span class="info">Сделай уведомления</span>
+        <span class="success">{{ notice.title }}</span>
+        <span class="info">{{ notice.content }}</span>
       </div>
-      <div class="progress" id="progress"></div>
     </div>
   </div>
 </template>
@@ -25,8 +30,6 @@
   background: #ffffff;
   box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transform: translate(100vw);
-  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
   width: 20vw;
   height: 7vw;
 }
@@ -54,11 +57,6 @@
   span {
     margin: 0;
   }
-  .progress {
-    width: 20vw;
-    height: 4px;
-    background: #2770ff;
-  }
   .message {
     width: 100%;
     padding: 1vw 1vw;
@@ -70,20 +68,6 @@
     .info {
       color: #333333cf;
     }
-  }
-}
-.active {
-  transform: translate(0);
-}
-.move {
-  animation: 5s progress forwards linear;
-}
-@keyframes progress {
-  0% {
-    width: 100%;
-  }
-  100% {
-    width: 0;
   }
 }
 </style>

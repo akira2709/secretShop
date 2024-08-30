@@ -4,12 +4,13 @@
 
 	const props = defineProps({
 		value: String,
+        mode: String,
 	})
 	const data = inject('data')
     const file = ref({})
 
     function handleUpload() {
-        const input = document.getElementById('input')
+        const input = document.getElementById(props.mode)
         input.click()
     }
 
@@ -28,7 +29,7 @@
 	<div class="inpBlock">
 	    <p>{{ ucFirst(value) }}</p>
 		<div class="inputBox">
-            <input type="file" id="input" @change="onUpload($event)">
+            <input type="file" :id="mode" @change="onUpload($event)">
             <div class="fileBox">
                 <div v-if="file.name" class="input filename" :title="file.name">
                     <span>{{ file.name }}</span>

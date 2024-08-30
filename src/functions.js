@@ -1,4 +1,4 @@
-const url = 'http://192.168.1.84:3000'
+const url = 'http://192.168.1.94:3000'
 export default function slash(value) {
   if (value > 99999){
     value = value.toExponential(1).replace('+', '')
@@ -84,51 +84,8 @@ export async function removeFromBasket(itemId, userId) {
 }
 
 
-var isClicked = false
-var liveCycle = null
-var progressBarRestore = null
-export function showNotice(mode) {
-  const toast = document.getElementById('toast')
-  const progress = document.getElementById('progress')
-  const cross = document.getElementById('cross')
-  if (isClicked === false || mode === 'extra') {
-    if (mode !== 'extra') {
-      isClicked = null
-      setTimeout(() => isClicked = true, 800)
-    } else {
-      setTimeout(() => isClicked = true, 800)
-    }
-    toast.classList.toggle('active')
-    progress.classList.toggle('move')
-    liveCycle = setTimeout(() => {
-      toast.classList.toggle('active')
-    }, 5000)
-    progressBarRestore = setTimeout(() => {
-      isClicked = false
-      progress.classList.toggle('move')
-    }, 5500)
-    cross.onclick = () => {
-      clearTimeout(liveCycle)
-      clearTimeout(progressBarRestore)
-      toast.classList.toggle('active')
-      setTimeout(() => {
-        progress.classList.toggle('move')
-        isClicked = false
-      }, 500)
-    }
-  }
-  else if (isClicked === true){
-    isClicked = null
-    clearTimeout(liveCycle)
-    clearTimeout(progressBarRestore)
-    liveCycle = null
-    progressBarRestore = null
-    toast.classList.toggle('active')
-    setTimeout(() => progress.classList.toggle('move'), 400)
-    setTimeout(() => {
-      showNotice('extra')
-    }, 500)
-  }
+export function showNotice(title = '', content = '', notices) {
+  notices.push({title: title, content: content})
 }
 
 
@@ -167,6 +124,44 @@ export function ucFirst(string) {
 }
 
 export function checkForm(data) {
-  console.log(data)
-  return false
+  switch (data.orderOrOffer) {
+    case 'offer':
+      if (!data.name || !data.price || !data.description || !data.file || data.name.includes('ㅤ') || data.price.includes('ㅤ') || data.description.includes('ㅤ')) {
+          return {title: 'Ошибка!', content: 'Заполните все поля'}
+        }
+    case 'order':
+      if (!data.name || !data.price || (!data.description && !data.file) || data.name.includes('ㅤ') || data.price.includes('ㅤ') || data.description.includes('ㅤ')) {
+        return {title: 'Ошибка!', content: 'Одно из обязательных полей не заполнено'}
+      }
+  }
+  return true
+}
+
+export async function sendForm(data) {
+  let notice = {
+    title: '',
+    content: ''
+  }
+  const formData = new FormData();
+  for (const key in data) {
+    if (data[key] instanceof File) {
+      formData.append(key, data[key]);
+    } else {
+      formData.append(key, JSON.stringify(data[key]));
+    }
+  }
+  let response = await fetch(url + `/save_item`, {
+    method: 'POST', 
+    mode: 'cors',
+    body: formData,
+  })
+  if (response.ok) {
+    let content = await response.json()
+    notice.title = 'Успех!'
+    notice.content = content.message
+  } else {
+    notice.title = 'Ошибка!'
+    notice.content = 'Данные не были сохранены, повторите отпрваку'
+  }
+  return notice
 }
