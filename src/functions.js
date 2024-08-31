@@ -143,7 +143,7 @@ export async function sendForm(data) {
     content: ''
   }
   const reader = new FileReader();
-  reader.readAsText(data.file)
+  reader.readAsDataURL(data.file)
   reader.onload = () => {
     data.file = reader.result
   }
