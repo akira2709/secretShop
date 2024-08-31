@@ -19,7 +19,6 @@
         subject: '',
         description: '',
         file: '',
-        date: '',
         orderOrOffer: '',
         author: ''
     })
@@ -33,7 +32,6 @@
             data.value.orderOrOffer = 'order'
         }
         data.value.author = user.value.user_id
-        data.value.date = JSON.stringify({year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()})
         const isCorrect = checkForm(data.value)
         if (isCorrect === true) {
             let response = await sendForm(data.value)

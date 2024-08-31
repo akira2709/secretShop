@@ -144,10 +144,16 @@ export async function sendForm(data) {
   }
   const blob = new Blob([data.file], { type: data.file.type });
   data.file = data.file.name;
+  const formData = new FormData()
+  formData.append('file', blob)
+  formData.append('data', data)
   let response = await fetch(url + `/save_item`, {
     method: 'POST', 
     mode: 'cors',
-    body: JSON.stringify({data: data, file: blob}),
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
+    body: formData,
   })
   if (response.ok) {
     let content = await response.json()
