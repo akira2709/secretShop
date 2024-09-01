@@ -36,10 +36,8 @@
         if (isCorrect === true) {
             let response = await sendForm(data.value)
             if (response.title === 'Успех!') {
-                for (key in data.value) {
-                    data.value.key = ''
-                }
-            } 
+                ['name', 'price', 'description', 'file'].forEach((el) => data.value[el] = '')
+            }
             showNotice(response.title, response.content, notices.value)
         } else {
             showNotice(isCorrect.title, isCorrect.content, notices.value)

@@ -1,4 +1,4 @@
-const url = 'http://192.168.1.79:3000'
+const url = 'http://192.168.1.93:3000'
 export default function slash(value) {
   if (value > 99999){
     value = value.toExponential(1).replace('+', '')
@@ -137,31 +137,37 @@ export function checkForm(data) {
   return true
 }
 
-export async function sendForm(data) {
-  let notice = {
-    title: '',
-    content: ''
+export async function sendForm(params) {
+  const request = async (data) => {
+    let title;
+    let content;
+    let response = await fetch(url + `/save_item`, {
+      method: 'POST', 
+      mode: 'cors',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({data}),
+    })
+    if (response.ok) {
+      let res = await response.json()
+      title = 'Успех!'
+      content = res.message
+    } else {
+      let res = await response.json()
+      title = 'Ошибка!'
+      content = res.error
+    }
+    return {title: title, content: content}
   }
+  let data = Object.assign({}, params)
   const reader = new FileReader();
   reader.readAsDataURL(data.file)
   reader.onload = () => {
-    data.file = reader.result
+    return async (data) => {
+      data.file = reader.result
+      return await request(data)
+    }
   }
-  let response = await fetch(url + `/save_item`, {
-    method: 'POST', 
-    mode: 'cors',
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({data}),
-  })
-  if (response.ok) {
-    let content = await response.json()
-    notice.title = 'Успех!'
-    notice.content = content.message
-  } else {
-    notice.title = 'Ошибка!'
-    notice.content = 'Данные не были сохранены, повторите отпрваку'
-  }
-  return notice
+  return reader.onload()(data)
 }

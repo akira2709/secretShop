@@ -7,7 +7,6 @@
         mode: String,
 	})
 	const data = inject('data')
-    const file = ref({})
 
     function handleUpload() {
         const input = document.getElementById(props.mode)
@@ -15,12 +14,10 @@
     }
 
     function onUpload(event) {
-        file.value = event.target.files[0]
-        data.value.file = file.value
+        data.value.file = event.target.files[0]
     }
 
     function deleteFile() {
-        file.value = {}
         data.value.file = ''
     }
 </script>
@@ -31,8 +28,8 @@
 		<div class="inputBox">
             <input type="file" :id="mode" @change="onUpload($event)">
             <div class="fileBox">
-                <div v-if="file.name" class="input filename" :title="file.name">
-                    <span>{{ file.name }}</span>
+                <div v-if="data.file.name" class="input filename" :title="data.file.name">
+                    <span>{{ data.file.name }}</span>
                     <img src="/public/cross.svg" alt="cross" @click="deleteFile()">
                 </div>
                 <div v-else class="input filename" style="width: 10.6vw;">Файл не выбран...</div>
