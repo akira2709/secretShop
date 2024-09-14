@@ -129,10 +129,12 @@ export function checkForm(data) {
       if (!data.name || !data.price || !data.description || !data.file || data.name.includes('ㅤ') || data.price.includes('ㅤ') || data.description.includes('ㅤ')) {
           return {title: 'Ошибка!', content: 'Заполните все поля'}
         }
+      break;
     case 'order':
       if (!data.name || !data.price || (!data.description && !data.file) || data.name.includes('ㅤ') || data.price.includes('ㅤ') || data.description.includes('ㅤ')) {
         return {title: 'Ошибка!', content: 'Одно из обязательных полей не заполнено'}
       }
+      break;
   }
   return true
 }
@@ -161,13 +163,36 @@ export async function sendForm(params) {
     return {title: title, content: content}
   }
   let data = Object.assign({}, params)
-  const reader = new FileReader();
-  reader.readAsDataURL(data.file)
-  reader.onload = () => {
-    return async (data) => {
-      data.file = reader.result
-      return await request(data)
-    }
+  const read = (data) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader()
+      reader.onload = () => {
+        data.file = reader.result
+        resolve(data)
+      }
+      reader.readAsDataURL(data.file)
+    })
   }
-  return reader.onload()(data)
+
+  const reformedData = await read(data)
+  const response = await request(reformedData)
+  return response
+
+}
+
+export class Item {
+  constructor(params) {
+    this.id = params.id || 'loading...'
+    this.name = params.name || 'loading...'
+    this.price = params.price || 'loading...'
+    this.author = params.author || 'loading...'
+    this.subject = params.subject || 'loading...'
+    this.type = params.type || 'loading...'
+    this.date = params.date || 'loading...'
+    this.rating = params.rating || 'loading...'
+    this.process = params.process || undefined
+    this.orderOrOffer = params.oreder_or_offer || 'loading...'
+    this.description = params.description || 'loading...'
+    this.file = params.file || 'loading...'
+  }
 }

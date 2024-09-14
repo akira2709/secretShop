@@ -6,7 +6,7 @@
 </script>
 
 <template>
-    <ItemCard v-for="item in items" :item="item"></ItemCard>
+    <ItemCard v-for="item in items" :item="item" :key="item"></ItemCard>
     <RouterView></RouterView>
 </template>
 

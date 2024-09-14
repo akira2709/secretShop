@@ -1,23 +1,40 @@
 <script setup>
+  import { onMounted, ref } from "vue";
+  import { Item, getItem } from "@/functions.js";
   const props = defineProps({
-    item: Object,
-  })
+    item: Number,
+  });
+  const itemData = ref(new Item({}))
+  onMounted(async () => {
+    itemData.value = new Item(await getItem(props.item))
+  });
+  function Download() {
+    const link = document.createElement('a')
+    link.href = itemData.value.file
+    document.body.appendChild(link)
+    let access = true;
+    if (access) {
+      link.click()
+    }
+    document.body.removeChild(link)
+  }
 </script>
 
 <template>
   <div class="orderCard">
     <div class="subTitle">
-      <h1></h1>
-      <img src="" alt="subject logo">
+      <h1>{{ itemData.name }}</h1>
     </div>
     <div class="description">
-      <p></p>
+      <p>{{ itemData.description }}</p>
+    </div>
+    <div class="price">
+      <p>{{ itemData.price }}</p>
     </div>
     <div class="btnBox">
-      <button class="workButton">Работы</button>  
+      <button class="workButton" @click="Download()">Работы</button>
     </div>
   </div>
-  
 </template>
 
 <style scoped>
@@ -25,9 +42,9 @@
   position: relative;
   height: 15.81vw;
   width: 14.14vw;
-  border: 2px solid #5C6973;
-  background: linear-gradient(#21252C, #050505);
-  border-image: linear-gradient(#5C6973, #1F232A);
+  border: 2px solid #5c6973;
+  background: linear-gradient(#21252c, #050505);
+  border-image: linear-gradient(#5c6973, #1f232a);
   border-image-slice: 1;
   padding: 1vw;
   .btnBox {
@@ -49,7 +66,7 @@
     text-overflow: ellipsis;
     p {
       margin: 0;
-      color: #5C6973;
+      color: #5c6973;
     }
   }
   .subTitle {
@@ -58,7 +75,7 @@
     width: 90%;
   }
   h1 {
-    color: #BBBBBB;
+    color: #bbbbbb;
     margin: 1vw 0;
     margin-right: 1vw;
     font-size: 1.5vw;
@@ -66,9 +83,9 @@
   button {
     cursor: pointer;
     font-size: 1vw;
-    color: #A6AEA3;
+    color: #a6aea3;
     border: 1.5px solid;
-    border-image: linear-gradient(#F7BC1B, #655828) 1;
+    border-image: linear-gradient(#f7bc1b, #655828) 1;
     background: linear-gradient(rgba(100, 76, 11, 0.41), #050505);
     width: calc(11.45vw - 2px);
     height: calc(2.7vw - 2px);

@@ -1,5 +1,5 @@
 <script setup>
-  import { onMounted, watch, ref, reactive, provide } from 'vue';
+  import { onMounted, watch, ref, provide } from 'vue';
   import { checkIsAuth, checkJWT, getItems } from './functions.js'
   import Notice from './components/Notice.vue'
   import Login from './components/Login.vue'
@@ -30,7 +30,7 @@
 </script>
 
 <template>
-  <Notice v-for="notice in notices" :notice="notice"></Notice>
+  <Notice v-for="notice in notices" :notice="notice" :key="notice"></Notice>
   <Login v-if="!user"></Login>
   <HomePage v-else></HomePage>
 </template>
