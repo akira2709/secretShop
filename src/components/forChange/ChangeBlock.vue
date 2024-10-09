@@ -8,6 +8,7 @@
   })
   const data = inject('data')
   const types = ['Самостоятельная', 'Контрольная', 'Домашняя']
+  const classes = [6, 7, 8, 9, 10, 11]
 
   const isOpen = ref(false)
   const value = ref()
@@ -26,6 +27,9 @@
     if (props.mode === 'type') {
       value.value = types[0]
       values.value = types
+    } else if (props.mode === 'class') {
+      value.value = classes[0]
+      values.value = classes
     } else {
       let data = await getSubjects()
       values.value = data.map((el) => ucFirst(el.name))

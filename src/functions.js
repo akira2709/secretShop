@@ -126,12 +126,12 @@ export function ucFirst(string) {
 export function checkForm(data) {
   switch (data.orderOrOffer) {
     case 'offer':
-      if (!data.name || !data.price || !data.description || !data.file || data.name.includes('ㅤ') || data.price.includes('ㅤ') || data.description.includes('ㅤ')) {
+      if (!data.name || !data.price || !data.description || !data.file || data.name.includes('ㅤ') || data.price.includes('ㅤ') || data.description.includes('ㅤ') || !data.class) {
           return {title: 'Ошибка!', content: 'Заполните все поля'}
         }
       break;
     case 'order':
-      if (!data.name || !data.price || (!data.description && !data.file) || data.name.includes('ㅤ') || data.price.includes('ㅤ') || data.description.includes('ㅤ')) {
+      if (!data.name || !data.price || (!data.description && !data.file) || data.name.includes('ㅤ') || data.price.includes('ㅤ') || data.description.includes('ㅤ') || !data.class) {
         return {title: 'Ошибка!', content: 'Одно из обязательных полей не заполнено'}
       }
       break;
@@ -180,6 +180,19 @@ export async function sendForm(params) {
 
 }
 
+export async function getItemsAuthor(author) {
+  let items = [];
+  const response = await fetch(url + `/get_items_author/${author}`, {
+    method: 'GET',
+    mode: 'cors',
+  })
+  if (response.ok) {
+    let data = await response.json()
+    items = data;
+  }
+  return items
+}
+
 export class Item {
   constructor(params) {
     this.id = params.id || 'loading...'
@@ -189,8 +202,8 @@ export class Item {
     this.subject = params.subject || 'loading...'
     this.type = params.type || 'loading...'
     this.date = params.date || 'loading...'
-    this.rating = params.rating || 'loading...'
-    this.process = params.process || undefined
+    this.rating = params.rating ?? 'loading...'
+    this.process = params.process ?? undefined
     this.orderOrOffer = params.oreder_or_offer || 'loading...'
     this.description = params.description || 'loading...'
     this.file = params.file || 'loading...'

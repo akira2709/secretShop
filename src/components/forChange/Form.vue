@@ -1,17 +1,19 @@
 <script setup>
     import { ref, provide, inject } from 'vue'
-    import { checkForm, showNotice, sendForm } from '/src/functions.js'
+    import { checkForm, showNotice, sendForm, getItems } from '/src/functions.js'
     import InputBlock from './InputBlock.vue'
     import InputText from './InputText.vue'
     import ChangeBlock from './ChangeBlock.vue'
     import FileInput from './FileInput.vue'
 
-    const props = defineProps({
+    defineProps({
         mode: String,
     })
 
     const notices = inject('notices')
     const user = inject('user')
+    const items = inject('items')
+    const filters = inject('filters')
     const data = ref({
         name: '',
         price: '',
@@ -20,7 +22,8 @@
         description: '',
         file: '',
         orderOrOffer: '',
-        author: ''
+        author: '', 
+        class: '',
     })
     provide('data', data)
     
@@ -36,9 +39,10 @@
         if (isCorrect === true) {
             let response = await sendForm(data.value)
             if (response.title === 'Успех!') {
-                ['name', 'price', 'description', 'file'].forEach((el) => data.value[el] = '')
+                ['name', 'price', 'description', 'file'].forEach((el) => data.value[el] = '')   
             }
             showNotice(response.title, response.content, notices.value)
+            items.value = await getItems(filters.value)
         } else {
             showNotice(isCorrect.title, isCorrect.content, notices.value)
         }
@@ -52,6 +56,7 @@
     </InputBlock>
     <ChangeBlock name="Тип" mode="type"></ChangeBlock>
     <ChangeBlock name="Предмет" mode="subject"></ChangeBlock>
+    <ChangeBlock name="Класс" mode="class"></ChangeBlock>
     <InputText value="Описание"></InputText>
     <FileInput value="Фото" :mode="mode"></FileInput>
     <div class="submit">

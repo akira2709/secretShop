@@ -31,6 +31,12 @@
     <div class="price">
       <p>{{ itemData.price }}</p>
     </div>
+    <div class="rating">
+      <p>{{ itemData.rating }}</p>
+    </div>
+    <div class="author">
+      <p>{{ itemData.author }}</p>
+    </div>
     <div class="btnBox">
       <button class="workButton" @click="Download()">Работы</button>
     </div>

@@ -1,5 +1,6 @@
 <script setup>
-  import { inject, ref } from 'vue'
+  import { inject, ref, onMounted } from 'vue'
+  import { getItemsAuthor} from '../functions.js'
   const user = inject('user')
   const isOpen = ref(false)
   const isOffers = (value) => {
@@ -22,6 +23,10 @@
       'part': (1 - value + Math.floor(value)) * 100,
     }
   }
+  const items = ref([])
+  onMounted(async () => {
+    items.value = await getItemsAuthor(user.value.user_id)  
+  })
 </script>
 
 <template>
@@ -69,15 +74,15 @@
       <div class="offers">
         <h1>Мои сделки</h1>
         <div class="myOffers">
-          <div v-if="!user.my_offers.length" class="noOffers">
+          <div v-if="!items.length" class="noOffers">
             <img src="/empty-basket.svg" alt="empty basket">
             <h1>Сделок нет</h1>
           </div>
-          <div v-if="!isOpen">
-            <div class="offerCard" v-for="offer in lastOffers(user.my_offers)" :key="offer.id">
+          <div v-else-if="!isOpen">
+            <div class="offerCard" v-for="offer in lastOffers(items)" :key="offer.id">
               <h1>{{ offer.name }}</h1>
               <div class="offerData">
-                <p>{{ offer.author }}</p>
+                <p>{{ offer.process ? 'Звершена' : 'В процессе' }}</p>
                 <p>{{ offer.date }}</p>
               </div>
               <div class="offerData">
@@ -87,10 +92,10 @@
             </div>
           </div>
           <div v-else>
-            <div class="offerCard" v-for="offer in user.my_offers" :key="offer.id">
+            <div class="offerCard" v-for="offer in items" :key="offer.id">
               <h1>{{ offer.name }}</h1>
               <div class="offerData">
-                <p>{{ offer.author }}</p>
+                <p>{{ offer.process ? 'Звершена' : 'В процессе' }}</p>
                 <p>{{ offer.date }}</p>
               </div>
               <div class="offerData">
@@ -99,9 +104,9 @@
               </div>
             </div>
           </div>
-          <div class="offerInfo" v-if="user.my_offers.length >= 1">
-            <h1 v-if="!isOpen">{{isOffers(user.my_offers.length)}} из {{ user.my_offers.length }}</h1>
-            <h1 v-else>{{ user.my_offers.length }} из {{ user.my_offers.length }}</h1>
+          <div class="offerInfo" v-if="items.length >= 1">
+            <h1 v-if="!isOpen">{{isOffers(items.length)}} из {{ items.length }}</h1>
+            <h1 v-else>{{ items.length }} из {{ items.length }}</h1>
             <div class="open" @click="isOpen = !isOpen">
               <img src="/arrow-down.svg" alt="arrow down" v-if="!isOpen">
               <img src="/arrow-down.svg" alt="arrow up" v-else style="rotate: 180deg; margin-top: -.1vw">
