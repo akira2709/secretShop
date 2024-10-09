@@ -35,6 +35,8 @@
             data.value.orderOrOffer = 'order'
         }
         data.value.author = user.value.user_id
+        data.value.type += ' работа'
+        data.value.class += ' класс'
         const isCorrect = checkForm(data.value)
         if (isCorrect === true) {
             let response = await sendForm(data.value)
