@@ -1,6 +1,6 @@
 <script setup>
 import { inject } from 'vue'
-  const props = defineProps({
+  defineProps({
     value: String,
   })
   const filters = inject('filters')

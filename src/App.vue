@@ -1,5 +1,7 @@
 <script setup>
   import { onMounted, watch, ref, provide } from 'vue';
+  import router from './main.js';
+  import { ucFirst } from './functions.js';
   import { checkIsAuth, checkJWT, getItems } from './functions.js'
   import Notice from './components/Notice.vue'
   import Login from './components/Login.vue'
@@ -26,6 +28,17 @@
   provide('notices', notices)
   watch(filters.value, async () => {
     items.value = await getItems(filters.value)
+  })
+  router.beforeEach((to, from) => {
+    if (from.query.subject && filters.value.includes(ucFirst(from.query.subject))) {
+      let index = filters.value.indexOf(ucFirst(from.query.subject))
+      filters.value.splice(index, 1)
+    }
+    if (to.query.subject) {
+      if (!filters.value.includes(ucFirst(to.query.subject)) && to.query.subject !== 'all') {
+        filters.value.push(ucFirst(to.query.subject))
+      }
+    }
   })
 </script>
 
