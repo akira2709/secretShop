@@ -9,8 +9,8 @@ import SubjectCard from '@/components/forMain/SubjectCard.vue'
         </div>
         <p>магазин нужых работ</p>
         <div class="buttonsBox">
-            <button class="send">Отправить</button>
-            <button class="request">Запросить</button>
+            <button class="send" @click="$router.push({ path: $route.path + '/change' })">Отправить</button>
+            <button class="request" @click="$router.push({ path: $route.path + '/change' })">Запросить</button>
             <button class="buy" @click="$router.push({ name: 'items', query: { subject: 'all' } })">Купить</button>
         </div>
     </div>
