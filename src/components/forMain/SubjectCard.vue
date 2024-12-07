@@ -12,7 +12,7 @@
   <div class="orderCard" v-for="subject in subjects" :key="subject.name">
     <div class="subTitle">
       <h1>{{ ucFirst(subject.name) }}</h1>
-      <img src="" alt="subject logo">
+      <img :src="subject.icon" alt="subject logo">
     </div>
     <div class="description">
       <p>{{ subject.description }}</p>
@@ -62,7 +62,13 @@
   .subTitle {
     display: flex;
     word-break: keep-all;
-    width: 90%;
+    width: 100%;
+    img {
+      width: calc(((1vw + 1vh) / 2) * 4);
+      aspect-ratio: 1;
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
   h1 {
     color: #BBBBBB;

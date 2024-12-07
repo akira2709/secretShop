@@ -22,7 +22,7 @@
 
 <template>
   <div class="orderCard">
-    <div class="subTitle">
+    <!-- <div class="subTitle">
       <h1>{{ itemData.name }}</h1>
     </div>
     <div class="description">
@@ -38,7 +38,25 @@
       <p>{{ itemData.author }}</p>
     </div>
     <div class="btnBox">
-      <button class="workButton" @click="Download()">Работы</button>
+      <button class="workButton" @click="Download()">Купить</button>
+    </div> -->
+    <div class="subTitle">
+      <h1>{{ itemData.name }}</h1>
+    </div>
+    <div class="description">
+      <p>{{ itemData.description }}</p>
+    </div>
+    <div class="subTitle">
+      <h1>{{ itemData.date }}</h1>
+    </div>
+    <div class="footer">
+      <div class="price">
+        <p>{{ itemData.price }}</p>
+      </div>
+      <div class="btns">
+        <button>+</button>
+        <button>Купить</button>
+      </div>
     </div>
   </div>
 </template>
@@ -53,15 +71,6 @@
   border-image: linear-gradient(#5c6973, #1f232a);
   border-image-slice: 1;
   padding: 1vw;
-  .btnBox {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    top: 0;
-    left: 0;
-    height: 17.81vw;
-    width: 16.14vw;
-  }
   .workButton {
     position: absolute;
     bottom: 1.5vw;
@@ -79,10 +88,15 @@
     display: flex;
     word-break: keep-all;
     width: 90%;
+    margin-top: .5vw;
+    margin-bottom: .5vw;
+    h1 {
+      font-size: 1.3vw !important;   
+    }
   }
   h1 {
     color: #bbbbbb;
-    margin: 1vw 0;
+    margin: 0 0;
     margin-right: 1vw;
     font-size: 1.5vw;
   }
@@ -108,6 +122,14 @@
       scale: 0.98;
       transition: all 100ms;
     }
+  }
+  .btns {
+    display: flex;
+    width: 80%;
+  }
+  .footer {
+    display: flex;
+    width: 100%;
   }
 }
 </style>
