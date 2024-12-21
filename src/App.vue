@@ -1,18 +1,17 @@
 <script setup>
-  import { onMounted, watch, ref, provide } from 'vue';
-  import router from './main.js';
-  import { ucFirst } from './functions.js';
+  import { onMounted, watch, ref, provide } from 'vue'
+  import router from './main.js'
+  import { ucFirst } from './functions.js'
   import { checkIsAuth, checkJWT, getItems } from './functions.js'
-  import Notice from './components/Notice.vue'
   import Login from './components/Login.vue'
   import HomePage from './components/HomePage.vue'
+  import 'vue3-toastify/dist/index.css'
 
   const user = ref(null)
   const filters = ref(['По дате'])
   const selectedItems = ref([])
   const totalPrice = ref(0)
   const items = ref([])
-  const notices = ref([])
   onMounted(async () => {
     user.value = await checkJWT()
     if (!user.value) {
@@ -25,7 +24,6 @@
   provide('selectedItems', selectedItems)
   provide('totalPrice', totalPrice)
   provide('items', items)
-  provide('notices', notices)
   watch(filters.value, async () => {
     items.value = await getItems(filters.value)
   })
@@ -43,7 +41,6 @@
 </script>
 
 <template>
-  <Notice v-for="notice in notices" :notice="notice" :key="notice"></Notice>
   <Login v-if="!user"></Login>
   <HomePage v-else></HomePage>
 </template>

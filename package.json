@@ -13,8 +13,8 @@
   "dependencies": {
     "node-modules": "^1.0.1",
     "vue": "^3.4.15",
-    "vue-notify": "^1.0.9",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.3.3",
+    "vue3-toastify": "^0.2.5"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",

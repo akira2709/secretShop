@@ -54,8 +54,10 @@
         <p>{{ itemData.price }}</p>
       </div>
       <div class="btns">
-        <button>+</button>
-        <button>Купить</button>
+        <button class="addToCart">
+          <p>+</p>
+        </button>
+        <button class="buyBtn">Купить</button>
       </div>
     </div>
   </div>
@@ -126,6 +128,22 @@
   .btns {
     display: flex;
     width: 80%;
+    align-items: center;
+    margin-left: .5vw;
+    gap: .3vw;
+    box-sizing: border-box;
+  }
+  .addToCart {
+    width: auto;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      margin: 0 !important;
+      padding: 0 !important;
+      font-size: 1.5vw;
+    }
   }
   .footer {
     display: flex;

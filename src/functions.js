@@ -84,10 +84,6 @@ export async function removeFromBasket(itemId, userId) {
 }
 
 
-export function showNotice(title = '', content = '', notices) {
-  notices.push({title: title, content: content})
-}
-
 
 export async function getItems(filters) {
   let items= []

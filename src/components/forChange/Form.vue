@@ -1,6 +1,7 @@
 <script setup>
     import { ref, provide, inject } from 'vue'
-    import { checkForm, showNotice, sendForm, getItems } from '/src/functions.js'
+    import { checkForm, sendForm, getItems } from '/src/functions.js'
+    import { toast } from 'vue3-toastify'
     import InputBlock from './InputBlock.vue'
     import InputText from './InputText.vue'
     import ChangeBlock from './ChangeBlock.vue'
@@ -10,7 +11,6 @@
         mode: String,
     })
 
-    const notices = inject('notices')
     const user = inject('user')
     const items = inject('items')
     const filters = inject('filters')
@@ -43,10 +43,11 @@
             if (response.title === 'Успех!') {
                 ['name', 'price', 'description', 'file'].forEach((el) => data.value[el] = '')   
             }
-            showNotice(response.title, response.content, notices.value)
+            // showNotice(response.title, response.content, notices.value)
+            toast.success(`${response.title} \n${response.content}`)
             items.value = await getItems(filters.value)
         } else {
-            showNotice(isCorrect.title, isCorrect.content, notices.value)
+            toast.error(`${isCorrect.title} \n${isCorrect.content}`)
         }
     }
 </script>

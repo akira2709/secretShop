@@ -1,9 +1,9 @@
 <script setup>
   import { inject } from 'vue'
   import BasketCart from '@/components/forBasket/BasketCart.vue'
-  import { getItem, showNotice } from '@/functions.js'
+  import { getItem } from '@/functions.js'
+  import { toast } from 'vue3-toastify';
   const user = inject('user')
-  const notices = inject('notices')
   const totalPrice = inject('totalPrice')
   const selectedItems = inject('selectedItems')
   function ending (val) {
@@ -58,13 +58,13 @@
           <p>на сумму {{ totalPrice }} shr</p>
         </div>
         <div class="select-btn">
-          <button @click="showNotice('Успешно!', 'Оплата прошла', notices)">Купить выбранное</button>
+          <button @click="toast.success('Оплата прошла успешно!')">Купить выбранное</button>
           <p @click="clearAll()">Очистить выбранное</p>
           <p @click="addAll()">Выбрать все</p>
         </div>
       </div>
       <div class="infoDivider"></div>
-      <BasketCart v-for="item_id in user.basket" :item_id="item_id" :countPrice="countPrice"></BasketCart>
+      <BasketCart v-for="item_id in user.basket" :item_id="item_id" :countPrice="countPrice" :key="item_id"></BasketCart>
     </div>
   </div>
 </template>
